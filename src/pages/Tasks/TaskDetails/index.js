@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Col, Row } from 'reactstrap';
 import BreadCrumb from '../../../Components/Common/BreadCrumb';
 import Comments from './Comments';
-import Summary from './Summary';
+import Details from './Details';
 // import TimeTracking from "./TimeTracking";
 
 const TaskDetails = () => {
@@ -18,7 +18,7 @@ const TaskDetails = () => {
                             {/* <TimeTracking /> */}
                         </Col>
                         <Col xxl={9}>
-                            {/* <Summary /> */}
+                            <Details />
                             <Comments />
                         </Col>
                     </Row>

@@ -11,7 +11,7 @@ const Navdata = () => {
     const [isMaps, setIsMaps] = useState(false);
 
     // Apps
-    const [isProjects, setIsProjects] = useState(false);
+    const [isBacklogs, setIsBacklogs] = useState(false);
     const [isTasks, setIsTasks] = useState(false);
 
     // Authentication
@@ -104,20 +104,20 @@ const Navdata = () => {
             stateVariables: isApps,
             subItems: [
                 {
-                    id: "appsprojects",
+                    id: "appsbacklogs",
                     label: "Backlogs",
                     link: "/#",
                     isChildItem: true,
                     click: function (e) {
                         e.preventDefault();
-                        setIsProjects(!isProjects);
+                        setIsBacklogs(!isBacklogs);
                     },
                     parentId: "apps",
-                    stateVariables: isProjects,
+                    stateVariables: isBacklogs,
                     childItems: [
-                        { id: 1, label: "List", link: "/apps-projects-list", parentId: "apps", },
-                        { id: 2, label: "Overview", link: "/apps-projects-overview", parentId: "apps", },
-                        { id: 3, label: "Create Project", link: "/apps-projects-create", parentId: "apps", },
+                        { id: 1, label: "List", link: "/apps-backlogs-list", parentId: "apps", },
+                        { id: 2, label: "Overview", link: "/apps-backlogs-overview", parentId: "apps", },
+                        { id: 3, label: "Create Backlog", link: "/apps-backlogs-create", parentId: "apps", },
                     ]
                 },
                 {

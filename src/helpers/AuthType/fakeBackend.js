@@ -10,8 +10,9 @@ import {
   direactContact,
   messages,
   allTask,
+  allBacklog,
   channelsList,
-  projectList,
+  // projectList,
   mailbox,
 } from "../../common/data";
 
@@ -343,14 +344,55 @@ const fakeBackend = () => {
     });
   });
 
-  mock.onGet(url.GET_PROJECT_LIST).reply(() => {
+  
+
+  mock.onGet(url.GET_BACKLOG_LIST).reply(() => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        if (projectList) {
+        if (allBacklog) {
           // Passing fake JSON data as response
-          resolve([200, projectList]);
+          resolve([200, allBacklog]);
         } else {
-          reject([400, "Cannot get project list data"]);
+          reject([400, "Cannot get Backlog List Data"]);
+        }
+      });
+    });
+  });
+
+  mock.onPost(url.ADD_NEW_BACKLOG).reply(backlog => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (backlog && backlog.data) {
+          // Passing fake JSON data as response
+          resolve([200, backlog.data]);
+        } else {
+          reject([400, "Cannot add backlog"]);
+        }
+      });
+    });
+  });
+
+  mock.onPut(url.UPDATE_BACKLOG).reply(backlog => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (backlog && backlog.data) {
+          // Passing fake JSON data as response
+          resolve([200, backlog.data]);
+        } else {
+          reject([400, "Cannot update backlog"]);
+        }
+      });
+    });
+  });
+
+  mock.onDelete(url.DELETE_BACKLOG).reply(config => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (config && config.headers) {
+          // Passing fake JSON data as response
+          resolve([200, config.headers.backlog]);
+        } else {
+          reject([400, "Cannot delete backlog"]);
         }
       });
     });
@@ -411,86 +453,86 @@ const fakeBackend = () => {
 
 
 
-  mock.onPost(url.ADD_NEW_CONTACT).reply(contact => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (contact && contact.data) {
-          // Passing fake JSON data as response
-          resolve([200, contact.data]);
-        } else {
-          reject([400, "Cannot add Contact"]);
-        }
-      });
-    });
-  });
+  // mock.onPost(url.ADD_NEW_CONTACT).reply(contact => {
+  //   return new Promise((resolve, reject) => {
+  //     setTimeout(() => {
+  //       if (contact && contact.data) {
+  //         // Passing fake JSON data as response
+  //         resolve([200, contact.data]);
+  //       } else {
+  //         reject([400, "Cannot add Contact"]);
+  //       }
+  //     });
+  //   });
+  // });
 
-  mock.onPut(url.UPDATE_CONTACT).reply(contact => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (contact && contact.data) {
-          // Passing fake JSON data as response
-          resolve([200, contact.data]);
-        } else {
-          reject([400, "Cannot update Contact"]);
-        }
-      });
-    });
-  });
+  // mock.onPut(url.UPDATE_CONTACT).reply(contact => {
+  //   return new Promise((resolve, reject) => {
+  //     setTimeout(() => {
+  //       if (contact && contact.data) {
+  //         // Passing fake JSON data as response
+  //         resolve([200, contact.data]);
+  //       } else {
+  //         reject([400, "Cannot update Contact"]);
+  //       }
+  //     });
+  //   });
+  // });
 
-  mock.onDelete(url.DELETE_CONTACT).reply(config => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (config && config.headers) {
-          // Passing fake JSON data as response
-          resolve([200, config.headers.contact]);
-        } else {
-          reject([400, "Cannot delete Contact"]);
-        }
-      });
-    });
-  });
-
-
+  // mock.onDelete(url.DELETE_CONTACT).reply(config => {
+  //   return new Promise((resolve, reject) => {
+  //     setTimeout(() => {
+  //       if (config && config.headers) {
+  //         // Passing fake JSON data as response
+  //         resolve([200, config.headers.contact]);
+  //       } else {
+  //         reject([400, "Cannot delete Contact"]);
+  //       }
+  //     });
+  //   });
+  // });
 
 
-  mock.onPost(url.ADD_NEW_LEAD).reply(lead => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (lead && lead.data) {
-          // Passing fake JSON data as response
-          resolve([200, lead.data]);
-        } else {
-          reject([400, "Cannot add Lead"]);
-        }
-      });
-    });
-  });
 
-  mock.onPut(url.UPDATE_LEAD).reply(lead => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (lead && lead.data) {
-          // Passing fake JSON data as response
-          resolve([200, lead.data]);
-        } else {
-          reject([400, "Cannot update Lead"]);
-        }
-      });
-    });
-  });
 
-  mock.onDelete(url.DELETE_LEAD).reply(config => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (config && config.headers) {
-          // Passing fake JSON data as response
-          resolve([200, config.headers.lead]);
-        } else {
-          reject([400, "Cannot delete Lead"]);
-        }
-      });
-    });
-  });
+  // mock.onPost(url.ADD_NEW_LEAD).reply(lead => {
+  //   return new Promise((resolve, reject) => {
+  //     setTimeout(() => {
+  //       if (lead && lead.data) {
+  //         // Passing fake JSON data as response
+  //         resolve([200, lead.data]);
+  //       } else {
+  //         reject([400, "Cannot add Lead"]);
+  //       }
+  //     });
+  //   });
+  // });
+
+  // mock.onPut(url.UPDATE_LEAD).reply(lead => {
+  //   return new Promise((resolve, reject) => {
+  //     setTimeout(() => {
+  //       if (lead && lead.data) {
+  //         // Passing fake JSON data as response
+  //         resolve([200, lead.data]);
+  //       } else {
+  //         reject([400, "Cannot update Lead"]);
+  //       }
+  //     });
+  //   });
+  // });
+
+  // mock.onDelete(url.DELETE_LEAD).reply(config => {
+  //   return new Promise((resolve, reject) => {
+  //     setTimeout(() => {
+  //       if (config && config.headers) {
+  //         // Passing fake JSON data as response
+  //         resolve([200, config.headers.lead]);
+  //       } else {
+  //         reject([400, "Cannot delete Lead"]);
+  //       }
+  //     });
+  //   });
+  // });
 
  
   mock.onGet(url.GET_MAIL_DETAILS).reply(() => {
@@ -519,96 +561,96 @@ const fakeBackend = () => {
     });
   });
 
-  mock.onPost(url.ADD_NEW_ORDER).reply(order => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (order && order.data) {
-          // Passing fake JSON data as response
-          resolve([200, order.data]);
-        } else {
-          reject([400, "Cannot add mail"]);
-        }
-      });
-    });
-  });
+//   mock.onPost(url.ADD_NEW_ORDER).reply(order => {
+//     return new Promise((resolve, reject) => {
+//       setTimeout(() => {
+//         if (order && order.data) {
+//           // Passing fake JSON data as response
+//           resolve([200, order.data]);
+//         } else {
+//           reject([400, "Cannot add mail"]);
+//         }
+//       });
+//     });
+//   });
 
-  mock.onPut(url.UPDATE_ORDER).reply(order => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (order && order.data) {
-          // Passing fake JSON data as response
-          resolve([200, order.data]);
-        } else {
-          reject([400, "Cannot update order"]);
-        }
-      });
-    });
-  });
+//   mock.onPut(url.UPDATE_ORDER).reply(order => {
+//     return new Promise((resolve, reject) => {
+//       setTimeout(() => {
+//         if (order && order.data) {
+//           // Passing fake JSON data as response
+//           resolve([200, order.data]);
+//         } else {
+//           reject([400, "Cannot update order"]);
+//         }
+//       });
+//     });
+//   });
 
-  mock.onDelete(url.DELETE_ORDER).reply(config => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (config && config.headers) {
-          // Passing fake JSON data as response
-          resolve([200, config.headers.order]);
-        } else {
-          reject([400, "Cannot delete order"]);
-        }
-      });
-    });
-  });
+//   mock.onDelete(url.DELETE_ORDER).reply(config => {
+//     return new Promise((resolve, reject) => {
+//       setTimeout(() => {
+//         if (config && config.headers) {
+//           // Passing fake JSON data as response
+//           resolve([200, config.headers.order]);
+//         } else {
+//           reject([400, "Cannot delete order"]);
+//         }
+//       });
+//     });
+//   });
 
-  mock.onPost(url.ADD_NEW_CUSTOMER).reply(customer => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (customer && customer.data) {
-          // Passing fake JSON data as response
-          resolve([200, customer.data]);
-        } else {
-          reject([400, "Cannot add customer"]);
-        }
-      });
-    });
-  });
+//   mock.onPost(url.ADD_NEW_CUSTOMER).reply(customer => {
+//     return new Promise((resolve, reject) => {
+//       setTimeout(() => {
+//         if (customer && customer.data) {
+//           // Passing fake JSON data as response
+//           resolve([200, customer.data]);
+//         } else {
+//           reject([400, "Cannot add customer"]);
+//         }
+//       });
+//     });
+//   });
 
-  mock.onPut(url.UPDATE_CUSTOMER).reply(customer => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (customer && customer.data) {
-          // Passing fake JSON data as response
-          resolve([200, customer.data]);
-        } else {
-          reject([400, "Cannot update customer"]);
-        }
-      });
-    });
-  });
+//   mock.onPut(url.UPDATE_CUSTOMER).reply(customer => {
+//     return new Promise((resolve, reject) => {
+//       setTimeout(() => {
+//         if (customer && customer.data) {
+//           // Passing fake JSON data as response
+//           resolve([200, customer.data]);
+//         } else {
+//           reject([400, "Cannot update customer"]);
+//         }
+//       });
+//     });
+//   });
   
-  mock.onDelete(url.DELETE_CUSTOMER).reply(config => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (config && config.headers) {
-          // Passing fake JSON data as response
-          resolve([200, config.headers.customer]);
-        } else {
-          reject([400, "Cannot delete customer"]);
-        }
-      });
-    });
-  });
+//   mock.onDelete(url.DELETE_CUSTOMER).reply(config => {
+//     return new Promise((resolve, reject) => {
+//       setTimeout(() => {
+//         if (config && config.headers) {
+//           // Passing fake JSON data as response
+//           resolve([200, config.headers.customer]);
+//         } else {
+//           reject([400, "Cannot delete customer"]);
+//         }
+//       });
+//     });
+//   });
 
-  mock.onDelete(url.DELETE_PRODUCT).reply(config => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (config && config.headers) {
-          // Passing fake JSON data as response
-          resolve([200, config.headers.product]);
-        } else {
-          reject([400, "Cannot delete product"]);
-        }
-      });
-    });
-  });
+//   mock.onDelete(url.DELETE_PRODUCT).reply(config => {
+//     return new Promise((resolve, reject) => {
+//       setTimeout(() => {
+//         if (config && config.headers) {
+//           // Passing fake JSON data as response
+//           resolve([200, config.headers.product]);
+//         } else {
+//           reject([400, "Cannot delete product"]);
+//         }
+//       });
+//     });
+//   });
 };
 
 export default fakeBackend;

@@ -1,7 +1,7 @@
-import { taskWidgets, allTask, kanbanBoardData } from "./taskList";
+import { allTask, kanbanBoardData } from "./taskList";
 import {
-  projectList,
-} from "./projectList";
+  allBacklog,
+} from "./backlogList";
 
 import { calenderDefaultCategories, events, defaultevent } from "./calender";
 import { direactContact, channelsList, messages } from "./chat";
@@ -9,11 +9,9 @@ import { mailbox } from "./mailbox";
 
 
 export {
-
-  taskWidgets,
   allTask,
   kanbanBoardData,
-  projectList,
+  allBacklog,
   direactContact,
   channelsList,
   messages,

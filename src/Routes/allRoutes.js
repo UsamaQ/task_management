@@ -10,10 +10,10 @@ import MailInbox from "../pages/EmailInbox";
 import Chat from "../pages/Chat";
 import Calendar from "../pages/Calendar";
 
-// Project
-import ProjectList from "../pages/Projects/ProjectList";
-import ProjectOverview from "../pages/Projects/ProjectOverview";
-import CreateProject from "../pages/Projects/CreateProject";
+// Backlog
+import BacklogList from "../pages/Backlogs/BacklogList";
+import BacklogOverview from "../pages/Backlogs/BacklogOverview";
+import CreateBacklog from "../pages/Backlogs/CreateBacklog";
 
 //Task
 import TaskDetails from "../pages/Tasks/TaskDetails";
@@ -71,10 +71,10 @@ const authProtectedRoutes = [
   //EMail
   { path: "/apps-mailbox", component: MailInbox },
 
-  //Projects
-  { path: "/apps-projects-list", component: ProjectList },
-  { path: "/apps-projects-overview", component: ProjectOverview },
-  { path: "/apps-projects-create", component: CreateProject },
+  //Backlogs
+  { path: "/apps-backlogs-list", component: BacklogList },
+  { path: "/apps-backlogs-overview", component: BacklogOverview },
+  { path: "/apps-backlogs-create", component: CreateBacklog },
 
   //Task
   { path: "/apps-tasks-list-view", component: TaskList },

@@ -14,20 +14,19 @@ import { useSelector, useDispatch } from "react-redux";
 import { Col, Modal, ModalBody, Row, Label, Input, Button, ModalHeader, FormFeedback, Form } from 'reactstrap';
 
 import {
-  getTaskList,
-  addNewTask,
-  updateTask,
-  deleteTask
+  getBacklogList,
+  addNewBacklog,
+  updateBacklog,
+  deleteBacklog
 } from "../../../store/actions";
 
 import {
-  OrdersId,
-  Project,
-  taskTitle,
+  backlogId,
+  backlogTitle,
   DueDate,
   Status,
   Priority
-} from "./TaskListCol";
+} from "./BacklogListCol";
 
 // Formik
 import * as Yup from "yup";
@@ -42,25 +41,25 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 
 
-const AllTasks = () => {
+const AllBacklogs = () => {
   const dispatch = useDispatch();
 
-  const { taskList } = useSelector((state) => ({
-    taskList: state.Tasks.taskList,
+  const { backlogList } = useSelector((state) => ({
+    backlogList: state.tasks.backlogList,
   }));
 
   const [isEdit, setIsEdit] = useState(false);
-  const [task, setTask] = useState([]);
-  const [TaskList, setTaskList] = useState([]);
+  const [backlog, setBacklog] = useState([]);
+  const [BacklogList, setBacklogList] = useState([]);
 
-  // Delete Task
+  // Delete Backlog
   const [deleteModal, setDeleteModal] = useState(false);
   const [modal, setModal] = useState(false);
 
   const toggle = useCallback(() => {
     if (modal) {
       setModal(false);
-      setTask(null);
+      setBacklog(null);
     } else {
       setModal(true);
       setDate(dateFormat());
@@ -68,19 +67,19 @@ const AllTasks = () => {
   }, [modal]);
 
   // Delete Data
-  const onClickDelete = (task) => {
-    setTask(task);
+  const onClickDelete = (backlog) => {
+    setBacklog(backlog);
     setDeleteModal(true);
   };
 
   useEffect(() => {
-    setTaskList(taskList);
-  }, [taskList]);
+    setBacklogList(backlogList);
+  }, [backlogList]);
 
   // Delete Data
-  const handleDeleteTask = () => {
-    if (task.id) {
-      dispatch(deleteTask(task));
+  const handleDeleteBacklog = () => {
+    if (backlog.id) {
+      dispatch(deleteBacklog(backlog));
       setDeleteModal(false);
     }
   };
@@ -91,21 +90,21 @@ const AllTasks = () => {
     enableReinitialize: true,
 
     initialValues: {
-      taskId: (task && task.taskId) || '',
-      project: (task && task.project) || '',
-      taskTitle: (task && task.taskTitle) || '',
-      description: (task && task.description) || '',
-      creater: (task && task.creater) || '',
-      dueDate: (task && task.dueDate) || '',
-      status: (task && task.status) || 'New',
-      priority: (task && task.priority) || 'High',
-      subItem: (task && task.subItem) || [],
+      backlogId: (backlog && backlog.backlogId) || '',
+      project: (backlog && backlog.project) || '',
+      backlogTitle: (backlog && backlog.backlogTitle) || '',
+      description: (backlog && backlog.description) || '',
+      creater: (backlog && backlog.creater) || '',
+      dueDate: (backlog && backlog.dueDate) || '',
+      status: (backlog && backlog.status) || 'New',
+      priority: (backlog && backlog.priority) || 'High',
+      subItem: (backlog && backlog.subItem) || [],
     },
     validationSchema: Yup.object({
-      taskId: Yup.string().required("Please Enter Task Id"),
+      backlogId: Yup.string().required("Please Enter Backlog Id"),
       project: Yup.string().required("Please Enter Project Name"),
-      taskTitle: Yup.string().required("Please Enter Your Task Title"),
-      description: Yup.string().required("Please Enter Your Task Description"),
+      backlogTitle: Yup.string().required("Please Enter Your Backlog Title"),
+      description: Yup.string().required("Please Enter Your Backlog Description"),
       creater: Yup.string().required("Please Enter Creater Name"),
       // dueDate: Yup.string().required("Please Enter Due Date"),
       status: Yup.string().required("Please Enter Status"),
@@ -114,11 +113,11 @@ const AllTasks = () => {
     }),
     handleSubmit: (values) => {
       if (isEdit) {
-        const updatedTask = {
-          id: task ? task.id : 0,
-          taskId: values.taskId,
+        const updatedBacklog = {
+          id: backlog ? backlog.id : 0,
+          backlogId: values.backlogId,
           project: values.project,
-          taskTitle: values.taskTitle,
+          backlogTitle: values.backlogTitle,
           description: values.description,
           creater: values.creater,
           dueDate: date,
@@ -127,14 +126,14 @@ const AllTasks = () => {
           subItem: values.subItem,
         };
         // update customer
-        dispatch(updateTask(updatedTask));
+        dispatch(updateBacklog(updatedBacklog));
         validation.resetForm();
       } else {
-        const newTask = {
+        const newBacklog = {
           id: Math.floor(Math.random() * (30 - 20)) + 20,
-          taskId: values["taskId"],
+          backlogId: values["backlogId"],
           project: values["project"],
-          taskTitle: values["taskTitle"],
+          backlogTitle: values["backlogTitle"],
           description: values["description"],
           creater: values["creater"],
           dueDate: date,
@@ -144,13 +143,13 @@ const AllTasks = () => {
         };
         console.log("hi");
         // save new customer
-        dispatch(addNewTask(newTask));
+        dispatch(addNewBacklog(newBacklog));
         validation.resetForm();
       }
       toggle();
 
-      // console.log(values.taskId);
-      // console.log(values.taskTitle);
+      // console.log(values.backlogId);
+      // console.log(values.backlogTitle);
       // console.log(values.description);
       // console.log(values.status);
       // console.log(values.priority);
@@ -163,19 +162,19 @@ const AllTasks = () => {
   }
   // Update Data
   const handleCustomerClick = useCallback((arg) => {
-    const task = arg;
+    const backlog = arg;
 
-    setTask({
-      id: task.id,
-      taskId: task.taskId,
-      project: task.project,
-      taskTitle: task.taskTitle,
-      description: task.description,
-      creater: task.creater,
-      dueDate: task.dueDate,
-      status: task.status,
-      priority: task.priority,
-      subItem: task.subItem,
+    setBacklog({
+      id: backlog.id,
+      backlogId: backlog.backlogId,
+      project: backlog.project,
+      backlogTitle: backlog.backlogTitle,
+      description: backlog.description,
+      creater: backlog.creater,
+      dueDate: backlog.dueDate,
+      status: backlog.status,
+      priority: backlog.priority,
+      subItem: backlog.subItem,
     });
 
     setIsEdit(true);
@@ -183,8 +182,8 @@ const AllTasks = () => {
   }, [toggle]);
 
   // Add Data
-  const handleTaskClicks = () => {
-    setTask("");
+  const handleBacklogClicks = () => {
+    setBacklog("");
     setIsEdit(false);
     toggle();
   };
@@ -192,30 +191,30 @@ const AllTasks = () => {
 
   // Get Data
   useEffect(() => {
-    dispatch(getTaskList());
+    dispatch(getBacklogList());
   }, [dispatch]);
 
   useEffect(() => {
-    if (!isEmpty(taskList)) setTaskList(taskList);
-  }, [taskList]);
+    if (!isEmpty(backlogList)) setBacklogList(backlogList);
+  }, [backlogList]);
 
   useEffect(() => {
-    if (taskList && !taskList.length) {
-      dispatch(getTaskList());
+    if (backlogList && !backlogList.length) {
+      dispatch(getBacklogList());
     }
-  }, [dispatch, taskList]);
+  }, [dispatch, backlogList]);
 
 
   useEffect(() => {
-    setTaskList(taskList);
-  }, [taskList]);
+    setBacklogList(backlogList);
+  }, [backlogList]);
 
   useEffect(() => {
-    if (!isEmpty(taskList)) {
-      setTaskList(taskList);
+    if (!isEmpty(backlogList)) {
+      setBacklogList(backlogList);
       setIsEdit(false);
     }
-  }, [taskList]);
+  }, [backlogList]);
 
   const columns = useMemo(
     () => [
@@ -226,16 +225,16 @@ const AllTasks = () => {
         },
       },
       {
-        Header: "Task ID",
-        accessor: "taskId",
+        Header: "Backlog ID",
+        accessor: "backlogId",
         filterable: false,
         Cell: (cellProps) => {
           return <OrdersId {...cellProps} />;
         },
       },
       {
-        Header: "Task Title",
-        accessor: "taskTitle",
+        Header: "Backlog Title",
+        accessor: "backlogTitle",
         filterable: false,
         Cell: (cellProps) => {
           return <React.Fragment>
@@ -249,12 +248,12 @@ const AllTasks = () => {
                     </Link>
                   </li>
                   <li className="list-inline-item">
-                    <Link to="#" onClick={() => { const taskData = cellProps.row.original; handleCustomerClick(taskData); }}>
+                    <Link to="#" onClick={() => { const backlogData = cellProps.row.original; handleCustomerClick(backlogData); }}>
                       <i className="ri-pencil-fill align-bottom me-2 text-muted"></i>
                     </Link>
                   </li>
                   <li className="list-inline-item">
-                    <Link to="#" className="remove-item-btn" onClick={() => { const taskData = cellProps.row.original; onClickDelete(taskData); }}>
+                    <Link to="#" className="remove-item-btn" onClick={() => { const backlogData = cellProps.row.original; onClickDelete(backlogData); }}>
                       <i className="ri-delete-bin-fill align-bottom me-2 text-muted"></i>
                     </Link>
                   </li>
@@ -310,7 +309,7 @@ const AllTasks = () => {
     <React.Fragment>
       <DeleteModal
         show={deleteModal}
-        onDeleteClick={handleDeleteTask}
+        onDeleteClick={handleDeleteBacklog}
         onCloseClick={() => setDeleteModal(false)}
       />
       <div className="row">
@@ -318,9 +317,9 @@ const AllTasks = () => {
           <div className="card" id="tasksList">
             <div className="card-header border-0">
               <div className="d-flex align-items-center">
-                <h5 className="card-title mb-0 flex-grow-1">All Tasks</h5>
+                <h5 className="card-title mb-0 flex-grow-1">All Backlogs</h5>
                 <div className="flex-shrink-0">
-                  <button className="btn btn-danger add-btn me-1" onClick={() => { setIsEdit(false); toggle(); }}><i className="ri-add-line align-bottom me-1"></i> Create Task</button>
+                  <button className="btn btn-danger add-btn me-1" onClick={() => { setIsEdit(false); toggle(); }}><i className="ri-add-line align-bottom me-1"></i> Create Backlog</button>
                   <button className="btn btn-soft-danger"
                   ><i className="ri-delete-bin-2-line"></i></button>
                 </div>
@@ -342,7 +341,7 @@ const AllTasks = () => {
             <div className="card-body">
               <TableContainer
                 columns={columns}
-                data={taskList}
+                data={backlogList}
                 isGlobalFilter={false}
                 isAddUserList={false}
                 customPageSize={5}
@@ -351,7 +350,7 @@ const AllTasks = () => {
                 tableClass="align-middle table-nowrap mb-0"
                 theadClass="table-light table-nowrap"
                 thClass="table-light text-muted"
-                handleTaskClick={handleTaskClicks}
+                handleBacklogClick={handleBacklogClicks}
               />
             </div>
           </div>
@@ -368,30 +367,30 @@ const AllTasks = () => {
         modalClassName='modal fade zoomIn'
       >
         <ModalHeader className="p-3 bg-soft-info" toggle={toggle}>
-          {!!isEdit ? "Edit Task" : "Create Task"}
+          {!!isEdit ? "Edit Backlog" : "Create Backlog"}
         </ModalHeader>
 
 
         <Form onSubmit={(e) => {     
           if (isEdit) {
-            const updatedTask = {
-              taskId: validation.values.taskId,
-              taskTitle: validation.values["taskTitle"],
+            const updatedBacklog = {
+              backlogId: validation.values.backlogId,
+              backlogTitle: validation.values["backlogTitle"],
               description: validation.values.description,
               status: validation.values.status,
               priority: validation.values.priority,
             };
-            dispatch(updateTask(updatedTask));
+            dispatch(updateBacklog(updatedBacklog));
             validation.resetForm();
           } else {
-            const newTask = {
-              taskId: validation.values["taskId"],
-              taskTitle: validation.values["taskTitle"],
+            const newBacklog = {
+              backlogId: validation.values["backlogId"],
+              backlogTitle: validation.values["backlogTitle"],
               description: validation.values["description"],
               status: validation.values["status"],
               priority: validation.values["priority"],
             };
-            dispatch(addNewTask(newTask));
+            dispatch(addNewBacklog(newBacklog));
             validation.resetForm();
           }
           toggle();
@@ -406,7 +405,7 @@ const AllTasks = () => {
                 <div>
                   <Label for="tasksTitle-field" className="form-label">Title</Label>
                   <Input
-                    name="taskTitle"
+                    name="backlogTitle"
                     id="tasksTitle-field"
                     className="form-control"
                     placeholder="Title"
@@ -416,19 +415,19 @@ const AllTasks = () => {
                     }}
                     onChange={validation.handleChange}
                     onBlur={validation.handleBlur}
-                    value={validation.values.taskTitle || ""}
+                    value={validation.values.backlogTitle || ""}
                     invalid={
-                      validation.touched.taskTitle && validation.errors.taskTitle ? true : false
+                      validation.touched.backlogTitle && validation.errors.backlogTitle ? true : false
                     }
                   />
-                  {validation.touched.taskTitle && validation.errors.taskTitle ? (
-                    <FormFeedback type="invalid">{validation.errors.taskTitle}</FormFeedback>
+                  {validation.touched.backlogTitle && validation.errors.backlogTitle ? (
+                    <FormFeedback type="invalid">{validation.errors.backlogTitle}</FormFeedback>
                   ) : null}
                 </div>
               </Col>
               <Col lg={12}>
               <div className="mb-3">
-                  <Label className="form-label">Task Description</Label>
+                  <Label className="form-label">Backlog Description</Label>
                   <CKEditor
                       name="description"
                       id="description-field"
@@ -532,7 +531,7 @@ const AllTasks = () => {
                 }}
                 className="btn-light"
               >Close</Button>
-              <button type="submit" className="btn btn-success" id="add-btn">{!!isEdit ? "Update Task" : "Add Task"}</button>
+              <button type="submit" className="btn btn-success" id="add-btn">{!!isEdit ? "Update Backlog" : "Add Backlog"}</button>
             </div>
           </div>
         </Form>
@@ -541,4 +540,4 @@ const AllTasks = () => {
   );
 };
 
-export default AllTasks;
+export default AllBacklogs;

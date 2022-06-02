@@ -1,6 +1,9 @@
 import React,{useState} from 'react';
 import { Link } from 'react-router-dom';
-import { Card, CardBody, CardHeader, Col, Container, Input, Label, Row } from 'reactstrap';
+import { 
+    Card, CardBody, CardHeader, Col, Container, Input, Label, Modal, Row, ModalHeader, ModalBody, Form 
+} from 'reactstrap';
+
 import BreadCrumb from '../../../Components/Common/BreadCrumb';
 //Import Flatepicker
 import Flatpickr from "react-flatpickr";
@@ -9,13 +12,15 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 import Dropzone from "react-dropzone";
+import DeleteModal from "../../../Components/Common/DeleteModal";
+
 
 //Import Images
 import avatar3 from "../../../assets/images/users/avatar-3.jpg";
 import avatar4 from "../../../assets/images/users/avatar-4.jpg";
 
-const CreateProject = () => {
-    document.title="Create Project | Velzon - React Admin & Dashboard Template";
+const CreateBacklog = () => {
+    document.title="Create Backlog | Velzon - React Admin & Dashboard Template";
 
     const SingleOptions = [
         { value: 'Watches', label: 'Watches' },
@@ -25,6 +30,34 @@ const CreateProject = () => {
         { value: '4 star', label: '4 star' },
       ];
 
+        // Delete Backlog
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [modal, setModal] = useState(true);
+
+
+//   const toggle = useCallback(() => {
+//     if (modal) {
+//       setModal(false);
+//     //   setTask(null);
+//     } else {
+//       setModal(true);
+//     //   setDate(dateFormat());
+//     }
+//   }, [modal]);
+
+  // Delete Data
+//   const onClickDelete = (task) => {
+//     setTask(task);
+//     setDeleteModal(true);
+//   };
+
+  // Delete Data
+//   const handleDeleteTask = () => {
+//     if (task.id) {
+//       dispatch(deleteTask(task));
+//       setDeleteModal(false);
+//     }
+//   };
     const [selectedMulti, setselectedMulti] = useState(null);
 
     function handleMulti(selectedMulti) {
@@ -59,17 +92,32 @@ const CreateProject = () => {
     }
     return (
         <React.Fragment>
+            {/* <DeleteModal
+        show={deleteModal}
+        onDeleteClick={handleDeleteTask}
+        onCloseClick={() => setDeleteModal(false)}
+      /> */}
             <div className="page-content">           
                 <Container fluid>
-                    <BreadCrumb title="Create Project" pageTitle="Projects" />
+                    <BreadCrumb title="Create Backlog" pageTitle="Backlogs" />
                     <Row>
-                        <Col lg={8}>
+                        <Modal
+                            isOpen={modal}
+                            // toggle={toggle}
+                            centered
+                            size="lg"
+                            className="border-0"
+                            modalClassName='modal fade zoomIn'
+                        >
+                        <Col lg={12}>
+                            <ModalHeader className="p-3 bg-soft-info">Create Backlog</ModalHeader>
+                            <ModalBody className="modal-body">
                             <Card>
                                 <CardBody>
                                     <div className="mb-3">
-                                        <Label className="form-label" htmlFor="project-title-input">Project Title</Label>
+                                        <Label className="form-label" htmlFor="project-title-input">Backlog Title</Label>
                                         <Input type="text" className="form-control" id="project-title-input"
-                                            placeholder="Enter project title" />
+                                            placeholder="Enter backlog title" />
                                     </div>
 
                                     <div className="mb-3">
@@ -78,7 +126,7 @@ const CreateProject = () => {
                                     </div>
 
                                     <div className="mb-3">
-                                        <Label className="form-label">Project Description</Label>
+                                        <Label className="form-label">Backlog Description</Label>
                                         <CKEditor
                                             editor={ClassicEditor}
                                             data="<p>Hello from CKEditor 5!</p>"
@@ -93,7 +141,7 @@ const CreateProject = () => {
                                     </div>
 
                                     <Row>
-                                        <Col lg={4}>
+                                        <Col lg={6}>
                                             <div className="mb-3 mb-lg-0">
                                                 <Label htmlFor="choices-priority-input" className="form-label">Priority</Label>
                                                 <select className="form-select" data-choices data-choices-search-false
@@ -104,7 +152,7 @@ const CreateProject = () => {
                                                 </select>
                                             </div>
                                         </Col>
-                                        <Col lg={4}>
+                                        <Col lg={6}>
                                             <div className="mb-3 mb-lg-0">
                                                 <Label htmlFor="choices-status-input" className="form-label">Status</Label>
                                                 <select className="form-select" data-choices data-choices-search-false
@@ -114,7 +162,7 @@ const CreateProject = () => {
                                                 </select>
                                             </div>
                                         </Col>
-                                        <Col lg={4}>
+                                        {/* <Col lg={4}>
                                             <div>
                                                 <Label htmlFor="datepicker-deadline-input" className="form-label">Deadline</Label>
                                                 <Flatpickr
@@ -125,7 +173,7 @@ const CreateProject = () => {
                                                     placeholder="Selact Date"
                                                 />
                                             </div>
-                                        </Col>
+                                        </Col> */}
                                     </Row>
                                 </CardBody>
                             </Card>
@@ -191,21 +239,22 @@ const CreateProject = () => {
                                                 </div>
                                                 </Card>
                                             );
-                                            })}
+                                        })}
                                         </ul>
 
                                     </div>
                                 </CardBody>
                             </Card>
-
-                            <div className="text-end mb-4">
-                                <button type="submit" className="btn btn-danger w-sm me-1">Delete</button>
-                                <button type="submit" className="btn btn-secondary w-sm me-1">Draft</button>
-                                <button type="submit" className="btn btn-success w-sm">Create</button>
-                            </div>
+                                <div className="text-end mb-4">
+                                    <button type="submit" className="btn btn-danger w-sm me-1">Delete</button>
+                                    <button type="submit" className="btn btn-secondary w-sm me-1">Draft</button>
+                                    <button type="submit" className="btn btn-success w-sm">Create</button>
+                                </div>
+                            </ModalBody>
                         </Col>
+                        </Modal>
 
-                        <Col lg={4}>
+                        {/* <Col lg={4}>
                             <div className="card">
                                 <div className="card-header">
                                     <h5 className="card-title mb-0">Privacy</h5>
@@ -300,7 +349,7 @@ const CreateProject = () => {
                                     </div>
                                 </CardBody>
                             </Card>
-                        </Col>
+                        </Col> */}
                     </Row>
                 </Container>
             </div>
@@ -308,4 +357,4 @@ const CreateProject = () => {
     );
 };
 
-export default CreateProject;
+export default CreateBacklog;

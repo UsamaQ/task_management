@@ -3,33 +3,33 @@ import BreadCrumb from '../../../Components/Common/BreadCrumb';
 import { Container } from 'reactstrap';
 //redux
 import { useSelector, useDispatch } from "react-redux";
-import { getProjectList } from "../../../store/actions";
+import { getBacklogList } from "../../../store/actions";
 
 
 import List from './List';
 
-const ProjectList = () => {
-    document.title="Project List | Velzon - React Admin & Dashboard Template";
+const BacklogList = () => {
+    document.title="Backlog List | Velzon - React Admin & Dashboard Template";
 
     const dispatch = useDispatch();
 
-    const { projectList } = useSelector((state) => ({
-        projectList: state.Projects.projectList,
+    const { backlogList } = useSelector((state) => ({
+        backlogList: state.Backlogs.backlogList,
     }));
 
     useEffect(() => {
-        dispatch(getProjectList());
+        dispatch(getBacklogList());
     }, [dispatch]);
     return (
         <React.Fragment>
             <div className="page-content">                
                 <Container fluid>
-                    <BreadCrumb title="Project List" pageTitle="Projects" />
-                    <List projectList={projectList} />
+                    <BreadCrumb title="Backlog List" pageTitle="Backlogs" />
+                    <List backlogList={backlogList} />
                 </Container>
             </div>
         </React.Fragment>
     );
 };
 
-export default ProjectList;
+export default BacklogList;

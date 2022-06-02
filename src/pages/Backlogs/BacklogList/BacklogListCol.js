@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const OrdersId = (cell) => {
+const backlogId = (cell) => {
     return (
         <React.Fragment>
             <Link to="/apps-tasks-details" className="fw-medium link-primary">{cell.value}</Link>
@@ -9,15 +9,7 @@ const OrdersId = (cell) => {
     );
 };
 
-const Backlog = (cell) => {
-    return (
-        <React.Fragment>
-            <Link to="/apps-backlogs-overview" className="fw-bold link-secondary">{cell.value}</Link>
-        </React.Fragment>
-    );
-};
-
-const taskTitle = (cell) => {
+const backlogTitle = (cell) => {
     return (
         <React.Fragment>
             <div className="d-flex">
@@ -111,4 +103,4 @@ const Priority = (cell) => {
 };
 
 
-export { OrdersId, Backlog, taskTitle, CreateBy, AssignedTo, DueDate, Status, Priority };
+export { backlogId, backlogTitle, CreateBy, AssignedTo, DueDate, Status, Priority };

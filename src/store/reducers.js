@@ -14,8 +14,8 @@ import Calendar from "./calendar/reducer";
 //Chat
 import chat from "./chat/reducer";
 
-//Project
-import Projects from "./projects/reducer";
+//Backlogs
+import Backlogs from "./backlogs/reducer";
 
 // Tasks
 import Tasks from "./tasks/reducer";
@@ -38,7 +38,7 @@ const rootReducer = combineReducers({
     Profile,
     Calendar,
     chat,
-    Projects,
+    Backlogs,
     Tasks,
     changeNumber,
     Mailbox
