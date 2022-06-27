@@ -12,6 +12,7 @@ const CardTaskBox = props => {
     }
 
     const { data } = props;
+    console.log(data);
     return (
         <React.Fragment>
             <div className="tasks-board mb-3" id="kanbanboard">
@@ -23,7 +24,7 @@ const CardTaskBox = props => {
                             <Card className="tasks-box" >
                                 <CardBody>
                                     <div className="d-flex mb-2">
-                                        <h6 className="fs-16 mb-0 flex-grow-1 text-truncate">{data.isTaskIdHeader ? <Link to="#" className="text-muted fw-medium fs-14 flex-grow-1">{data.taskId}</Link> : <Link to="/apps-tasks-details" className="link-dark">{data.title}</Link>}</h6>
+                                        <h6 className="fs-16 mb-0 flex-grow-1 text-truncate">{data.isTaskIdHeader ? <Link to="#" className="text-muted fw-medium fs-14 flex-grow-1">{data.Id}</Link> : <Link to="/apps-tasks-details" className="link-dark">{data.title}</Link>}</h6>
                                         <UncontrolledDropdown direction='start'>
                                             <DropdownToggle tag="a" id="dropdownMenuLink1" role="button">
                                                 <i className="ri-more-fill" />

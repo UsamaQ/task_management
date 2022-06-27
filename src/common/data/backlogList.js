@@ -15,9 +15,9 @@ import bgImage2 from "../../assets/images/small/img-4.jpg";
 const allBacklog = [
     {
         id: 1,
-        taskId: "#VLZ632",
-        taskTitle: "Error message when placing an orders?",
-        description: "Description of task 1",
+        backlogId: "#VLZ632",
+        backlogTitle: "Error message when placing an orders?",
+        description: "Description of backlog 1",
         // project: "Velzon - v1.0.0",
         // creater: "Robert McMahon",
         // subItem: [avatar3, avatar1],
@@ -30,9 +30,9 @@ const allBacklog = [
     },
     {
         id: 2,
-        taskId: "#VLZ453",
-        taskTitle: "Profile Page Satructure",
-        description: "Description of task 2",
+        backlogId: "#VLZ453",
+        backlogTitle: "Profile Page Satructure",
+        description: "Description of backlog 2",
         // project: "Skote - v1.0.0",
         // creater: "Mary Cousar",
         // subItem: [avatar10, avatar9, avatar5],
@@ -45,9 +45,9 @@ const allBacklog = [
     },
     {
         id: 3,
-        taskId: "#VLZ454",
-        taskTitle: "Apologize for shopping Error!",
-        description: "Description of task 3",
+        backlogId: "#VLZ454",
+        backlogTitle: "Apologize for shopping Error!",
+        description: "Description of backlog 3",
         // project: "Skote - v2.3.0",
         // creater: "Nathan Cole",
         // // subItem: [avatar5, avatar6, avatar7, avatar8],
@@ -60,9 +60,9 @@ const allBacklog = [
     },
     {
         id: 4,
-        taskId: "#VLZ455",
-        taskTitle: "Post launch reminder/ post list",
-        description: "Description of task 4",
+        backlogId: "#VLZ455",
+        backlogTitle: "Post launch reminder/ post list",
+        description: "Description of backlog 4",
         // project: "Minia - v1.4.0",
         // creater: "Joseph Parker",
         // // subItem: [avatar2],
@@ -75,9 +75,9 @@ const allBacklog = [
     },
     {
         id: 5,
-        taskId: "#VLZ456",
-        taskTitle: "Make a creating an account profile",
-        description: "Description of task 5",
+        backlogId: "#VLZ456",
+        backlogTitle: "Make a creating an account profile",
+        description: "Description of backlog 5",
         // project: "Minia - v1.2.0",
         // creater: "Henry Baird",
         // // subItem: [avatar3, avatar10, avatar9],
@@ -90,9 +90,9 @@ const allBacklog = [
     },
     {
         id: 6,
-        taskId: "#VLZ657",
-        taskTitle: "Change email option process",
-        description: "Description of task 6",
+        backlogId: "#VLZ657",
+        backlogTitle: "Change email option process",
+        description: "Description of backlog 6",
         // project: "Minimal - v2.1.0",
         // creater: "Tonya Noble",
         // // subItem: [avatar6, avatar7],
@@ -105,9 +105,9 @@ const allBacklog = [
     },
     {
         id: 7,
-        taskId: "#VLZ458",
-        taskTitle: "User research",
-        description: "Description of task 7",
+        backlogId: "#VLZ458",
+        backlogTitle: "User research",
+        description: "Description of backlog 7",
         // project: "Dason - v1.1.0",
         // creater: "Donald Palmer",
         // // subItem: [avatar10, avatar9, avatar8, avatar1],
@@ -120,9 +120,9 @@ const allBacklog = [
     },
     {
         id: 8,
-        taskId: "#VLZ459",
-        taskTitle: "Benner design for FB & Twitter",
-        description: "Description of task 8",
+        backlogId: "#VLZ459",
+        backlogTitle: "Benner design for FB & Twitter",
+        description: "Description of backlog 8",
         // project: "Dorsin - Landing Page",
         // creater: "Carter",
         // // subItem: [avatar5, avatar4],
@@ -135,9 +135,9 @@ const allBacklog = [
     },
     {
         id: 9,
-        taskId: "#VLZ460",
-        taskTitle: "Brand logo design",
-        description: "Description of task 9",
+        backlogId: "#VLZ460",
+        backlogTitle: "Brand logo design",
+        description: "Description of backlog 9",
         // project: "Qexal - Landing Page",
         // creater: "David Nichols",
         // // subItem: [avatar6, avatar7, avatar8],
@@ -150,9 +150,9 @@ const allBacklog = [
     },
     {
         id: 10,
-        taskId: "#VLZ461",
-        taskTitle: "Additional Calendar",
-        description: "Description of task 10",
+        backlogId: "#VLZ461",
+        backlogTitle: "Additional Calendar",
+        description: "Description of backlog 10",
         // project: "Doot - Chat App Template",
         // creater: "Diana Kohler",
         // // subItem: [avatar4],
@@ -165,9 +165,9 @@ const allBacklog = [
     },
     {
         id: 11,
-        taskId: "#VLZ462",
-        taskTitle: "Edit customer testimonial",
-        description: "Description of task 11",
+        backlogId: "#VLZ462",
+        backlogTitle: "Edit customer testimonial",
+        description: "Description of backlog 11",
         // project: "Skote - v2.1.0",
         // creater: "Nathan Cole",
         // // subItem: [avatar7, avatar8],
@@ -186,10 +186,10 @@ const allBacklog = [
 //         name: "Unassigned",
 //         badge: "2",
 //         badgeClass: "success",
-//         tasks: [
+//         backlogs: [
 //             {
 //                 id: 11,
-//                 taskId: "#VL2436",
+//                 backlogId: "#VL2436",
 //                 title: "Profile Page Satructure",
 //                 desc: "Profile Page means a web page accessible to the public or to guests.",
 //                 progressBar: "15%",
@@ -206,11 +206,11 @@ const allBacklog = [
 //                 view: "04",
 //                 message: "19",
 //                 file: "02",
-//                 isTaskId: true,
+//                 isbacklogId: true,
 //             },
 //             {
 //                 id: 12,
-//                 taskId: "#VL2436",
+//                 backlogId: "#VL2436",
 //                 title: "Velzon - Admin Layout Design",
 //                 desc: "The dashboard is the front page of the Administration UI.",
 //                 date: "07 Jan, 2022",
@@ -235,10 +235,10 @@ const allBacklog = [
 //         name: "To Do",
 //         badge: "2",
 //         badgeClass: "secondary",
-//         tasks: [
+//         backlogs: [
 //             {
 //                 id: 21,
-//                 taskId: "#VL2436",
+//                 backlogId: "#VL2436",
 //                 title: "Admin Layout Design",
 //                 desc: "Landing page template with clean, minimal and modern design.",
 //                 date: "07 Jan, 2022",
@@ -257,7 +257,7 @@ const allBacklog = [
 //             },
 //             {
 //                 id: 22,
-//                 taskId: "#VL2436",
+//                 backlogId: "#VL2436",
 //                 title: "Marketing & Sales",
 //                 desc: "Sales and marketing are two business functions within an organization.",
 //                 date: "27 Dec, 2021",
@@ -280,10 +280,10 @@ const allBacklog = [
 //         name: "Inprogress",
 //         badge: "2",
 //         badgeClass: "warning",
-//         tasks: [
+//         backlogs: [
 //             {
 //                 id: 31,
-//                 taskId: "#VL2457",
+//                 backlogId: "#VL2457",
 //                 title: "Brand Logo Design",
 //                 desc: "BrandCrowd's brand logo maker allows you to generate and customize stand-out brand logos in minutes.",
 //                 progressBar: "55%",
@@ -302,12 +302,12 @@ const allBacklog = [
 //                 view: "24",
 //                 message: "10",
 //                 file: "10",
-//                 isTaskIdHeader: true,
+//                 isbacklogIdHeader: true,
 //                 isProgessBarFooter: true,
 //             },
 //             {
 //                 id: 32,
-//                 taskId: "#VL2743",
+//                 backlogId: "#VL2743",
 //                 title: "Change Old App Icon",
 //                 desc: "Change app icons on Android: How do you change the look of your apps.",
 //                 progressBar: "0%",
@@ -325,7 +325,7 @@ const allBacklog = [
 //                 view: "64",
 //                 message: "35",
 //                 file: "23",
-//                 isTaskIdHeader: true,
+//                 isbacklogIdHeader: true,
 //                 isProgessBarFooter: true,
 //             }
 //         ]
@@ -335,10 +335,10 @@ const allBacklog = [
 //         name: "In Reviews",
 //         badge: "3",
 //         badgeClass: "info",
-//         tasks: [
+//         backlogs: [
 //             {
 //                 id: 41,
-//                 taskId: "#VL2453",
+//                 backlogId: "#VL2453",
 //                 title: "Create Product Animations",
 //                 desc: "BrandCrowd's brand logo maker allows you to generate and customize stand-out brand logos in minutes.",
 //                 progressBar: "100%",
@@ -354,12 +354,12 @@ const allBacklog = [
 //                 message: "54",
 //                 file: "28",
 //                 bgImage: bgImage1,
-//                 isTaskIdHeader: true,
+//                 isbacklogIdHeader: true,
 //                 isProgessBarFooter: true,
 //             },
 //             {
 //                 id: 42,
-//                 taskId: "#VL2340",
+//                 backlogId: "#VL2340",
 //                 title: "Product Features Analysis",
 //                 desc: "An essential part of strategic planning is running a product feature analysis.",
 //                 progressBar: "67%",
@@ -376,12 +376,12 @@ const allBacklog = [
 //                 view: "14",
 //                 message: "31",
 //                 file: "07",
-//                 isTaskIdHeader: true,
+//                 isbacklogIdHeader: true,
 //                 isProgessBarFooter: true,
 //             },
 //             {
 //                 id: 43,
-//                 taskId: "#VL2462",
+//                 backlogId: "#VL2462",
 //                 title: "Create a Graph of Sketch",
 //                 desc: "To make a pie chart with equal slices create a perfect circle by selecting an Oval Tool.",
 //                 progressBar: "0%",
@@ -401,7 +401,7 @@ const allBacklog = [
 //                 view: "12",
 //                 message: "74",
 //                 file: "37",
-//                 isTaskIdHeader: true,
+//                 isbacklogIdHeader: true,
 //                 isProgessBarFooter: true,
 //             }
 //         ]
@@ -411,10 +411,10 @@ const allBacklog = [
 //         name: "Completed",
 //         badge: "1",
 //         badgeClass: "success",
-//         tasks: [
+//         backlogs: [
 //             {
 //                 id: 51,
-//                 taskId: "#VL2451",
+//                 backlogId: "#VL2451",
 //                 title: "Create a Blog Template UI",
 //                 desc: "Landing page template with clean, minimal and modern design.",
 //                 progressBar: "35%",
@@ -433,7 +433,7 @@ const allBacklog = [
 //                 view: "24",
 //                 message: "10",
 //                 file: "10",
-//                 isTaskId: true,
+//                 isbacklogId: true,
 //             }
 //         ]
 //     },
@@ -442,10 +442,10 @@ const allBacklog = [
 //         name: "New",
 //         badge: "1",
 //         badgeClass: "success",
-//         tasks: [
+//         backlogs: [
 //             {
 //                 id: 61,
-//                 taskId: "#VL5287",
+//                 backlogId: "#VL5287",
 //                 title: "Banner Design for FB & Twitter",
 //                 desc: "Landing page template with clean, minimal and modern design.",
 //                 progressBar: "55%",
@@ -463,7 +463,7 @@ const allBacklog = [
 //                 message: "26",
 //                 file: "30",
 //                 bgImage: bgImage2,
-//                 isTaskIdHeader: true,
+//                 isbacklogIdHeader: true,
 //                 isProgessBarFooter: true,
 //             }
 //         ]

@@ -84,12 +84,19 @@ class APIClient {
   };
 }
 const getLoggedinUser = () => {
+  // const user = localStorage.getItem("authUser");
+  // if (!user) {
+  //   return null;
+  // } else {
+  //   return JSON.parse(user);
+  // }
   const user = localStorage.getItem("authUser");
   if (!user) {
     return null;
   } else {
     return JSON.parse(user);
   }
+  
 };
 
 export { APIClient, setAuthorization, getLoggedinUser };

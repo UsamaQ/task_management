@@ -17,8 +17,15 @@ import chat from "./chat/reducer";
 //Backlogs
 import Backlogs from "./backlogs/reducer";
 
+//Sprints
+import Sprints from "./sprints/reducer";
+
 // Tasks
 import Tasks from "./tasks/reducer";
+
+// SubTasks
+import SubTasks from "./subTasks/reducer";
+
 //Form advanced
 import changeNumber from "./formAdvanced/reducer";
 
@@ -39,7 +46,9 @@ const rootReducer = combineReducers({
     Calendar,
     chat,
     Backlogs,
+    Sprints,
     Tasks,
+    SubTasks,
     changeNumber,
     Mailbox
 });

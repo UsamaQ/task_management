@@ -232,8 +232,8 @@ const TableContainer = ({
         </Table>
       </div>
 
-      <Row className="justify-content-md-end justify-content-center align-items-center pe-2">
-        <Col className="col-md-auto">
+      <Row className="justify-content-sm-end justify-content-center align-items-center pe-2">
+        <Col className="col-sm-auto">
           <div className="d-flex gap-1">
             <Button
               color="primary"
@@ -244,13 +244,13 @@ const TableContainer = ({
             </Button>
           </div>
         </Col>
-        <Col className="col-md-auto d-none d-md-block">
+        <Col className="col-sm-auto d-none d-sm-block">
           Page{" "}
           <strong>
             {pageIndex + 1} of {pageOptions.length}
           </strong>
         </Col>
-        <Col className="col-md-auto">
+        <Col className="col-sm-auto">
           <Input
             type="number"
             min={1}
@@ -261,7 +261,7 @@ const TableContainer = ({
           />
         </Col>
 
-        <Col className="col-md-auto">
+        <Col className="col-sm-auto">
           <div className="d-flex gap-1">
             <Button color="primary" onClick={nextPage} disabled={!canNextPage}>
               {">"}
@@ -278,3 +278,4 @@ TableContainer.propTypes = {
 };
 
 export default TableContainer;
+

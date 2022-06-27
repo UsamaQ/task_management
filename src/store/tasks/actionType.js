@@ -1,7 +1,35 @@
 // Actions
 export const API_RESPONSE_SUCCESS = "API_RESPONSE_SUCCESS";
 export const API_RESPONSE_ERROR = "API_RESPONSE_ERROR";
+
 export const GET_TASK_LIST = "GET_TASK_LIST";
+
+
+
+/**
+ * TaskBoard Tasks
+ */
+export const GET_TASK_DETAIL = "GET_TASK_DETAIL";
+export const GET_TASKBOARD_TASK_LIST = "GET_TASKBOARD_TASK_LIST";
+export const GET_LINE_CHART_TASK_LIST = "GET_LINE_CHART_TASK_LIST";
+export const GET_STATUS_CHART_TASK_LIST = "GET_STATUS_CHART_TASK_LIST";
+
+
+
+/**
+ * Backlog Tasks
+ */
+ export const GET_BACKLOG_TASK_LIST = "GET_BACKLOG_TASK_LIST";
+ export const GET_BACKLOG_TASK_DETAIL = "GET_BACKLOG_TASK_DETAIL";
+ 
+
+ /**
+  * Sprint Tasks
+  */
+export const GET_SPRINT_TASK_LIST = "GET_SPRINT_TASK_LIST";
+export const GET_SPRINT_TASK_DETAIL = "GET_SPRINT_TASK_DETAIL";
+
+
 
 /**
 * Add TASK

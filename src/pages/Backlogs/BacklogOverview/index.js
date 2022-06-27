@@ -1,16 +1,22 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import { Container } from 'reactstrap';
-import Section from './Section';
+import BreadCrumb from '../../../Components/Common/BreadCrumb';
+import OverviewTab from './OverviewTab';
 
 
 const ProjectOverview = () => {
-    document.title="Project Overview | Velzon - React Admin & Dashboard Template";
+  let {id} = useParams();
+
+
+    document.title={id}+"Backlog Details | Velzon - React Admin & Dashboard Template";
 
     return (
         <React.Fragment>
             <div className="page-content">                
-                <Container fluid>                    
-                <Section />
+                <Container fluid>    
+                <BreadCrumb title="Backlog Details" pageTitle="Backlogs" />
+                <OverviewTab />
                 </Container>
             </div>
         </React.Fragment>

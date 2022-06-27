@@ -13,11 +13,18 @@ import Calendar from "../pages/Calendar";
 // Backlog
 import BacklogList from "../pages/Backlogs/BacklogList";
 import BacklogOverview from "../pages/Backlogs/BacklogOverview";
-import CreateBacklog from "../pages/Backlogs/CreateBacklog";
+
+// Sprint
+import SprintList from "../pages/Sprints/SprintList";
+import SprintOverview from "../pages/Sprints/SprintOverview";
 
 //Task
+import SprintTaskDetails from "../pages/Tasks/SprintTaskDetails";
+import SprintTaskList from "../pages/Tasks/SprintTaskList";
+import BacklogTaskDetails from "../pages/Tasks/BacklogTaskDetails";
+import BacklogTaskList from "../pages/Tasks/BacklogTaskList";
 import TaskDetails from "../pages/Tasks/TaskDetails";
-import TaskList from "../pages/Tasks/TaskList";
+// import TaskList from "../pages/Tasks/TaskList";
 import KanbanBoard from "../pages/Tasks/KanbanBoard/Index";
 
 
@@ -58,6 +65,7 @@ import Login from "../pages/Authentication/Login";
 import ForgetPasswordPage from "../pages/Authentication/ForgetPassword";
 import Logout from "../pages/Authentication/Logout";
 import Register from "../pages/Authentication/Register";
+import TasksBoard from "../pages/TasksBoard/TasksBoard";
 
 
 
@@ -73,13 +81,24 @@ const authProtectedRoutes = [
 
   //Backlogs
   { path: "/apps-backlogs-list", component: BacklogList },
-  { path: "/apps-backlogs-overview", component: BacklogOverview },
-  { path: "/apps-backlogs-create", component: CreateBacklog },
+  { path: "/apps-backlogs-overview/:id", component: BacklogOverview },
+  { path: "/apps-backlog-tasks-list-view/:id/:backlogName", component: BacklogTaskList },
+  { path: "/apps-backlog-tasks-details/:id", component: BacklogTaskDetails },
+
+
+  //Sprints
+  { path: "/apps-sprints-list", component: SprintList },
+  { path: "/apps-sprints-overview/:id", component: SprintOverview },
+  { path: "/apps-sprint-tasks-list-view/:id/:sprintName", component: SprintTaskList },
+  { path: "/apps-sprint-tasks-details/:id", component: SprintTaskDetails },
+
 
   //Task
-  { path: "/apps-tasks-list-view", component: TaskList },
-  { path: "/apps-tasks-details", component: TaskDetails },
+  // { path: "/apps-tasks-list-view", component: TaskList },
+  { path: "/apps-tasks-details/:id", component: TaskDetails },
+  { path: "/apps-sprint-tasks-list-view", component: SprintTaskList },
   { path: "/apps-tasks-kanban", component: KanbanBoard },
+  { path: "/apps-tasks-board", component: TasksBoard },
 
 
   
@@ -103,7 +122,7 @@ const authProtectedRoutes = [
   {
     path: "/",
     exact: true,
-    component: () => <Redirect to="/dashboard" />,
+    component: () => <Redirect to="/login" />,
   },
 ];
 

@@ -18,7 +18,7 @@ import logoLight from "../../assets/images/logo-light.png";
 import ParticlesAuth from "../AuthenticationInner/ParticlesAuth";
 
 const Register = () => {
-    document.title="Basic SignUp | Velzon - React Admin & Dashboard Template";
+    document.title="SignUp | Velzon - React Admin & Dashboard Template";
 
     const dispatch = useDispatch();
 
@@ -87,7 +87,7 @@ const Register = () => {
                                                 className="needs-validation" action="#">
                                                 {user && user ? (
                                                     <Alert color="success">
-                                                        Register User Successfully
+                                                        Register User Successfully {registrationError}
                                                     </Alert>
                                                 ) : null}
 
@@ -113,9 +113,9 @@ const Register = () => {
                                                     {validation.touched.email && validation.errors.email ? (
                                                         <FormFeedback type="invalid"><div>{validation.errors.email}</div></FormFeedback>
                                                     ) : null}
-                                                    <div className="invalid-feedback">
+                                                    {/* <div className="invalid-feedback">
                                                         Please enter email
-                                                    </div>
+                                                    </div> */}
                                                 </div>
                                                 <div className="mb-3">
                                                     <Label htmlFor="username" className="form-label">Username <span className="text-danger">*</span></Label>
@@ -133,9 +133,9 @@ const Register = () => {
                                                     {validation.touched.username && validation.errors.username ? (
                                                         <FormFeedback type="invalid"><div>{validation.errors.username}</div></FormFeedback>
                                                     ) : null}
-                                                    <div className="invalid-feedback">
+                                                    {/* <div className="invalid-feedback">
                                                         Please enter username
-                                                    </div>
+                                                    </div> */}
                                                 </div>
 
                                                 <div className="mb-2">
@@ -154,9 +154,9 @@ const Register = () => {
                                                     {validation.touched.password && validation.errors.password ? (
                                                         <FormFeedback type="invalid"><div>{validation.errors.password}</div></FormFeedback>
                                                     ) : null}
-                                                    <div className="invalid-feedback">
+                                                    {/* <div className="invalid-feedback">
                                                         Please enter password
-                                                    </div>
+                                                    </div> */}
                                                 </div>
 
                                                 <div className="mb-4">
@@ -168,7 +168,7 @@ const Register = () => {
                                                     <button className="btn btn-success w-100" type="submit">Sign Up</button>
                                                 </div>
 
-                                                <div className="mt-4 text-center">
+                                                {/* <div className="mt-4 text-center">
                                                     <div className="signin-other-title">
                                                         <h5 className="fs-13 mb-4 title text-muted">Create account with</h5>
                                                     </div>
@@ -179,7 +179,7 @@ const Register = () => {
                                                         <button type="button" className="btn btn-dark btn-icon waves-effect waves-light"><i className="ri-github-fill fs-16"></i></button>{" "}
                                                         <button type="button" className="btn btn-info btn-icon waves-effect waves-light"><i className="ri-twitter-fill fs-16"></i></button>
                                                     </div>
-                                                </div>
+                                                </div> */}
                                             </Form>
                                         </div>
                                     </CardBody>

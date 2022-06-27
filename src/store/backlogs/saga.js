@@ -1,20 +1,26 @@
 import { call, put, takeEvery, all, fork } from "redux-saga/effects";
 
-// Crypto Redux States
+// Backlog Redux States
 import {
     GET_BACKLOG_LIST,
     ADD_NEW_BACKLOG,
     DELETE_BACKLOG,
     UPDATE_BACKLOG,
+    GET_BACKLOG_DETAIL,
+    GET_ON_KEY_PRESS_BACKLOG_LIST,
 } from "./actionType";
 import {
-    BacklogApiResponseSuccess, BacklogApiResponseError,
+    BacklogApiResponseSuccess,
+    BacklogApiResponseError,
     addBacklogSuccess,
     addBacklogFail,
     updateBacklogSuccess,
     updateBacklogFail,
     deleteBacklogSuccess,
     deleteBacklogFail,
+    // getBacklogDetail,
+    getBacklogDetailSuccess,
+    getBacklogDetailFail,
 } from "./action";
 
 //Include Both Helper File with needed methods
@@ -25,10 +31,31 @@ import {
     deleteBacklog,
 }
     from "../../helpers/fakebackend_helper";
+import axios from "axios";
 
 function* getBacklogList() {
     try {
-        const response = yield call(getBacklogListApi);
+        const response = yield call(axios.post, 'http://localhost:3001/backlogs');
+        yield put(BacklogApiResponseSuccess(GET_BACKLOG_LIST, response));
+    } catch (error) {
+        yield put(BacklogApiResponseError(GET_BACKLOG_LIST, error));
+    }
+}
+
+function* getOnKeyPressBacklogList({ payload: search }) {
+    try {
+        const response = yield call(axios.post, `http://localhost:3001/backlogs/search-backlog/${search}`);
+        yield put(BacklogApiResponseSuccess(GET_ON_KEY_PRESS_BACKLOG_LIST, response));
+    } catch (error) {
+        yield put(BacklogApiResponseError(GET_ON_KEY_PRESS_BACKLOG_LIST, error));
+    }
+}
+
+function* getBacklogDetail({ payload: id }) {
+    // console.log("Backlog");
+    // console.log(id);
+    try {
+        const response = yield call(axios.post, `http://localhost:3001/backlogs/backlog-overview/${id}`);
         yield put(BacklogApiResponseSuccess(GET_BACKLOG_LIST, response));
     } catch (error) {
         yield put(BacklogApiResponseError(GET_BACKLOG_LIST, error));
@@ -37,8 +64,7 @@ function* getBacklogList() {
 
 function* onAddNewBacklog({ payload: backlog }) {
     try {
-        const response = yield call(addNewBacklog, backlog);
-
+        const response = yield call(axios.post, 'http://localhost:3001/backlogs/add-backlog', backlog)
         yield put(addBacklogSuccess(response));
     } catch (error) {
         yield put(addBacklogFail(error));
@@ -47,7 +73,7 @@ function* onAddNewBacklog({ payload: backlog }) {
 
 function* onDeleteBacklog({ payload: backlog }) {
     try {
-        const response = yield call(deleteBacklog, backlog);
+        const response = yield call(axios.post, 'http://localhost:3001/backlogs/delete-backlog', backlog);
         yield put(deleteBacklogSuccess(response));
     } catch (error) {
         yield put(deleteBacklogFail(error));
@@ -56,7 +82,7 @@ function* onDeleteBacklog({ payload: backlog }) {
 
 function* onUpdateBacklog({ payload: backlog }) {
     try {
-        const response = yield call(updateBacklog, backlog);
+        const response = yield call(axios.post, 'http://localhost:3001/backlogs/update-backlog', backlog);
         yield put(updateBacklogSuccess(response));
     } catch (error) {
         yield put(updateBacklogFail(error));
@@ -67,6 +93,14 @@ function* onUpdateBacklog({ payload: backlog }) {
 
 export function* watchGetBacklogList() {
     yield takeEvery(GET_BACKLOG_LIST, getBacklogList);
+}
+
+export function* watchGetOnKeyPressBacklogList() {
+    yield takeEvery(GET_ON_KEY_PRESS_BACKLOG_LIST, getOnKeyPressBacklogList);
+}
+
+export function* watchGetBacklogDetail() {
+    yield takeEvery(GET_BACKLOG_DETAIL, getBacklogDetail);
 }
 
 export function* watchAddNewBacklog() {
@@ -86,6 +120,8 @@ export function* watchDeleteBacklog() {
 function* backlogSaga() {
     yield all([
         fork(watchGetBacklogList),
+        fork(watchGetOnKeyPressBacklogList),
+        fork(watchGetBacklogDetail),
         fork(watchAddNewBacklog),
         fork(watchUpdateBacklog),
         fork(watchDeleteBacklog)

@@ -79,17 +79,18 @@ const DueDate = (cell) => {
 const Status = (cell) => {
     return (
         <React.Fragment>
-            {cell.value === "Inprogress" ?
-                <span className="badge badge-soft-secondary text-uppercase">{cell.value}</span>
-                :
-                cell.value === "New" ?
-                    <span className="badge badge-soft-info text-uppercase">{cell.value}</span>
-                    : cell.value === "Completed" ?
-                        <span className="badge badge-soft-success text-uppercase">{cell.value}</span>
-                        : cell.value === "Pending" ?
-                            <span className="badge badge-soft-warning text-uppercase">{cell.value}</span>
-                            : null
-            }
+            {cell.value === "To Do" ?
+            <span className="badge badge-soft-secondary text-uppercase">{cell.value}</span>
+            :
+            cell.value === "In Progress" ?
+                <span className="badge badge-soft-info text-uppercase">{cell.value}</span>
+                : cell.value === "Completed" ?
+                    <span className="badge badge-soft-success text-uppercase">{cell.value}</span>
+                    : cell.value === "Pending" ?
+                        <span className="badge badge-soft-warning text-uppercase">{cell.value}</span>
+                        : cell.value === "Cancelled" ?
+                        <span className="badge badge-soft-danger text-uppercase">{cell.value}</span>
+                        : null}
         </React.Fragment>
     );
 };

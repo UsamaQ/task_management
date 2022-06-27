@@ -3,29 +3,24 @@ import TableContainer from '../../../Components/Common/TableContainer';
 import DeleteModal from "../../../Components/Common/DeleteModal";
 
 
-// Import Scroll Bar - SimpleBar
-import SimpleBar from 'simplebar-react';
-
-//Import Flatepicker
-import Flatpickr from "react-flatpickr";
-
 //redux
 import { useSelector, useDispatch } from "react-redux";
-import { Col, Modal, ModalBody, Row, Label, Input, Button, ModalHeader, FormFeedback, Form } from 'reactstrap';
+import { Col, Modal, ModalBody, Row, Input, Button, ModalHeader, FormFeedback, Form } from 'reactstrap';
 
 import {
   getBacklogList,
   addNewBacklog,
   updateBacklog,
-  deleteBacklog
+  deleteBacklog,
+  getBacklogDetail
 } from "../../../store/actions";
 
 import {
-  backlogId,
-  backlogTitle,
-  DueDate,
-  Status,
-  Priority
+  Id,
+  Title,
+  Description,
+  Label,
+  Actions,
 } from "./BacklogListCol";
 
 // Formik
@@ -35,19 +30,13 @@ import { isEmpty } from "lodash";
 import { Link } from 'react-router-dom';
 
 
-//Import CK Editor
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-
-
-
 const AllBacklogs = () => {
   const dispatch = useDispatch();
 
   const { backlogList } = useSelector((state) => ({
-    backlogList: state.tasks.backlogList,
+    backlogList: state.Backlogs.backlogList,
   }));
-
+  
   const [isEdit, setIsEdit] = useState(false);
   const [backlog, setBacklog] = useState([]);
   const [BacklogList, setBacklogList] = useState([]);
@@ -66,6 +55,13 @@ const AllBacklogs = () => {
     }
   }, [modal]);
 
+
+  // // Backlog Detail
+  // const onClickOverview = (backlog) => {
+  //   console.log(backlog.id);
+  //     dispatch(getBacklogDetail(backlog));
+  // };
+  
   // Delete Data
   const onClickDelete = (backlog) => {
     setBacklog(backlog);
@@ -74,107 +70,43 @@ const AllBacklogs = () => {
 
   useEffect(() => {
     setBacklogList(backlogList);
+    // console.log(backlogList);
   }, [backlogList]);
-
+  
   // Delete Data
   const handleDeleteBacklog = () => {
     if (backlog.id) {
       dispatch(deleteBacklog(backlog));
       setDeleteModal(false);
+      window.location.reload(true);
     }
   };
-
+  
   // validation
   const validation = useFormik({
     // enableReinitialize : use this flag when initial values needs to be changed
     enableReinitialize: true,
 
     initialValues: {
-      backlogId: (backlog && backlog.backlogId) || '',
-      project: (backlog && backlog.project) || '',
-      backlogTitle: (backlog && backlog.backlogTitle) || '',
+      title: (backlog && backlog.title) || '',
       description: (backlog && backlog.description) || '',
-      creater: (backlog && backlog.creater) || '',
-      dueDate: (backlog && backlog.dueDate) || '',
-      status: (backlog && backlog.status) || 'New',
-      priority: (backlog && backlog.priority) || 'High',
-      subItem: (backlog && backlog.subItem) || [],
+      labelID: (backlog && backlog.labelID) || '',
     },
     validationSchema: Yup.object({
-      backlogId: Yup.string().required("Please Enter Backlog Id"),
-      project: Yup.string().required("Please Enter Project Name"),
-      backlogTitle: Yup.string().required("Please Enter Your Backlog Title"),
+      title: Yup.string().required("Please Enter Your Backlog Title"),
       description: Yup.string().required("Please Enter Your Backlog Description"),
-      creater: Yup.string().required("Please Enter Creater Name"),
-      // dueDate: Yup.string().required("Please Enter Due Date"),
-      status: Yup.string().required("Please Enter Status"),
-      priority: Yup.string().required("Please Enter Priority"),
-      subItem: Yup.array().required("Please Enter")
-    }),
-    handleSubmit: (values) => {
-      if (isEdit) {
-        const updatedBacklog = {
-          id: backlog ? backlog.id : 0,
-          backlogId: values.backlogId,
-          project: values.project,
-          backlogTitle: values.backlogTitle,
-          description: values.description,
-          creater: values.creater,
-          dueDate: date,
-          status: values.status,
-          priority: values.priority,
-          subItem: values.subItem,
-        };
-        // update customer
-        dispatch(updateBacklog(updatedBacklog));
-        validation.resetForm();
-      } else {
-        const newBacklog = {
-          id: Math.floor(Math.random() * (30 - 20)) + 20,
-          backlogId: values["backlogId"],
-          project: values["project"],
-          backlogTitle: values["backlogTitle"],
-          description: values["description"],
-          creater: values["creater"],
-          dueDate: date,
-          status: values["status"],
-          priority: values["priority"],
-          subItem: values["subItem"],
-        };
-        console.log("hi");
-        // save new customer
-        dispatch(addNewBacklog(newBacklog));
-        validation.resetForm();
-      }
-      toggle();
-
-      // console.log(values.backlogId);
-      // console.log(values.backlogTitle);
-      // console.log(values.description);
-      // console.log(values.status);
-      // console.log(values.priority);
-    },
+    })
   });
   
-  const handleCkEditorChange = (event,editor) => {
-    const data= editor.getData();
-    // console.log(data);
-  }
   // Update Data
-  const handleCustomerClick = useCallback((arg) => {
+  const handleEditClick = useCallback((arg) => {
     const backlog = arg;
 
     setBacklog({
       id: backlog.id,
-      backlogId: backlog.backlogId,
-      project: backlog.project,
-      backlogTitle: backlog.backlogTitle,
+      title: backlog.title,
       description: backlog.description,
-      creater: backlog.creater,
-      dueDate: backlog.dueDate,
-      status: backlog.status,
-      priority: backlog.priority,
-      subItem: backlog.subItem,
+      labelID: backlog.labelID,
     });
 
     setIsEdit(true);
@@ -225,30 +157,64 @@ const AllBacklogs = () => {
         },
       },
       {
-        Header: "Backlog ID",
-        accessor: "backlogId",
+        Header: "ID",
+        accessor: "id",
         filterable: false,
         Cell: (cellProps) => {
-          return <OrdersId {...cellProps} />;
+          return <Id {...cellProps} />;
         },
       },
       {
-        Header: "Backlog Title",
-        accessor: "backlogTitle",
+        Header: "Title",
+        accessor: "title",
         filterable: false,
         Cell: (cellProps) => {
-          return <React.Fragment>
-            <div className="d-flex">
-              <div className="flex-grow-1 tasks_name">{cellProps.value}</div>
-              <div className="flex-shrink-0 ms-4">
+          return <Title {...cellProps} />;
+        },
+      },
+      {
+          Header: "Label",
+          accessor: "labelID",
+          filterable: false,
+          Cell: (cellProps) => {
+            return <Label {...cellProps} />;
+          },
+        },
+        // {
+        //   Header: "Status",
+        //   accessor: "status",
+        //   filterable: false,
+        //   Cell: (cellProps) => {
+        //     return <Status {...cellProps} />;
+        //   },
+        // },
+      // {
+      //     Header: "Description",
+      //     accessor: "description",
+      //     filterable: false,
+      //     Cell: (cellProps) => {
+      //       return <Description {...cellProps} />;
+      //     },
+      //   },
+        {
+          Header: "Actions",
+          accessor: "action",
+          filterable: false,
+          Cell: (cellProps) => {
+            return <React.Fragment>
+            <div>
                 <ul className="list-inline tasks-list-menu mb-0">
                   <li className="list-inline-item">
-                    <Link to="/apps-tasks-details">
-                      <i className="ri-eye-fill align-bottom me-2 text-muted"></i>
+                    <Link 
+                    to={`/apps-backlogs-overview/${cellProps.row.original.id}`} 
+                    // onClick={() => { const backlogData = cellProps.row.original; onClickOverview(backlogData); }}
+                    >
+                      <i className="ri-eye-fill align-bottom me-2 text-muted">
+                      </i>
                     </Link>
                   </li>
                   <li className="list-inline-item">
-                    <Link to="#" onClick={() => { const backlogData = cellProps.row.original; handleCustomerClick(backlogData); }}>
+                    <Link to="#" onClick={() => { const backlogData = cellProps.row.original; handleEditClick(backlogData); }}>
                       <i className="ri-pencil-fill align-bottom me-2 text-muted"></i>
                     </Link>
                   </li>
@@ -259,10 +225,9 @@ const AllBacklogs = () => {
                   </li>
                 </ul>
               </div>
-            </div>
           </React.Fragment>;
+          },
         },
-      },
       // {
       //   Header: "Due Date",
       //   accessor: "dueDate",
@@ -271,24 +236,8 @@ const AllBacklogs = () => {
       //     return <DueDate {...cellProps} />;
       //   },
       // },
-      {
-        Header: "Status",
-        accessor: "status",
-        filterable: false,
-        Cell: (cellProps) => {
-          return <Status {...cellProps} />;
-        },
-      },
-      {
-        Header: "Priority",
-        accessor: "priority",
-        filterable: false,
-        Cell: (cellProps) => {
-          return <Priority {...cellProps} />;
-        },
-      },
     ],
-    [handleCustomerClick]
+    [handleEditClick]
   );
 
   const dateFormat = () => {
@@ -320,8 +269,8 @@ const AllBacklogs = () => {
                 <h5 className="card-title mb-0 flex-grow-1">All Backlogs</h5>
                 <div className="flex-shrink-0">
                   <button className="btn btn-danger add-btn me-1" onClick={() => { setIsEdit(false); toggle(); }}><i className="ri-add-line align-bottom me-1"></i> Create Backlog</button>
-                  <button className="btn btn-soft-danger"
-                  ><i className="ri-delete-bin-2-line"></i></button>
+                  {/* <button className="btn btn-soft-danger"
+                  ><i className="ri-delete-bin-2-line"></i></button> */}
                 </div>
               </div>
             </div>
@@ -330,11 +279,10 @@ const AllBacklogs = () => {
                 <div className="row g-3">
                   <div className="col-xxl-5 col-sm-12">
                     <div className="search-box">
-                      <input type="text" className="form-control search bg-light border-light" placeholder="Search for tasks or something..." />
+                      <input type="text" className="form-control search bg-light border-light" placeholder="Search for backlogs..." />
                       <i className="ri-search-line search-icon"></i>
                     </div>
                   </div>
-
                 </div>
               </form>
             </div>
@@ -374,28 +322,26 @@ const AllBacklogs = () => {
         <Form onSubmit={(e) => {     
           if (isEdit) {
             const updatedBacklog = {
-              backlogId: validation.values.backlogId,
-              backlogTitle: validation.values["backlogTitle"],
-              description: validation.values.description,
-              status: validation.values.status,
-              priority: validation.values.priority,
+              id: backlog.id,
+              title: validation.values["title"],
+              description: validation.values["description"],
+              labelID: validation.values["labelID"],
             };
             dispatch(updateBacklog(updatedBacklog));
             validation.resetForm();
           } else {
             const newBacklog = {
-              backlogId: validation.values["backlogId"],
-              backlogTitle: validation.values["backlogTitle"],
+              id: validation.values["id"],
+              title: validation.values["title"],
               description: validation.values["description"],
-              status: validation.values["status"],
-              priority: validation.values["priority"],
+              labelID: validation.values["labelID"],
             };
             dispatch(addNewBacklog(newBacklog));
             validation.resetForm();
           }
           toggle();
           e.preventDefault();
-          validation.handleSubmit();
+          // validation.handleSubmit();
           return false;
         }}>
           <ModalBody className="modal-body">
@@ -403,9 +349,9 @@ const AllBacklogs = () => {
               
               <Col lg={12}>
                 <div>
-                  <Label for="tasksTitle-field" className="form-label">Title</Label>
+                  <Label for="tasksTitle-field" className="form-labelID">Title</Label>
                   <Input
-                    name="backlogTitle"
+                    name="title"
                     id="tasksTitle-field"
                     className="form-control"
                     placeholder="Title"
@@ -415,110 +361,41 @@ const AllBacklogs = () => {
                     }}
                     onChange={validation.handleChange}
                     onBlur={validation.handleBlur}
-                    value={validation.values.backlogTitle || ""}
+                    value={validation.values.title || ""}
                     invalid={
-                      validation.touched.backlogTitle && validation.errors.backlogTitle ? true : false
+                      validation.touched.title && validation.errors.title ? true : false
                     }
                   />
-                  {validation.touched.backlogTitle && validation.errors.backlogTitle ? (
-                    <FormFeedback type="invalid">{validation.errors.backlogTitle}</FormFeedback>
+                  {validation.touched.title && validation.errors.title ? (
+                    <FormFeedback type="invalid">{validation.errors.title}</FormFeedback>
                   ) : null}
                 </div>
               </Col>
               <Col lg={12}>
-              <div className="mb-3">
-                  <Label className="form-label">Backlog Description</Label>
-                  <CKEditor
-                      name="description"
-                      id="description-field"
-                      editor={ClassicEditor}
-                      config={{placeholder: "Description"}}
-                    onReady={(editor) => {
-                      // You can store the "editor" and use when it is needed.
-                      
+
+              <div>
+                  <Label for="tasksDescription-field" className="form-labelDescription">Description</Label>
+                  <Input
+                    name="description"
+                    id="tasksDescription-field"
+                    className="form-control"
+                    placeholder="Description"
+                    type="textarea"
+                    rows="8" 
+                    validate={{
+                      required: { value: true },
                     }}
-                    onChange={handleCkEditorChange
-                    //   ( event, editor ) => {
-                    //   const data = editor.getData();
-                    //   console.log( { event, editor, data } );
-                    // } 
-                  }
-                    />
-              </div>
-              </Col>
-
-              {/* <Col lg={6}>
-                <Label for="duedate-field" className="form-label">Due Date</Label>
-
-                <Flatpickr
-                  name="dueDate"
-                  id="duedate-field"
-                  className="form-control"
-                  placeholder="Select a date"
-                  options={{
-                    altInput: true,
-                    altFormat: "d M, Y",
-                    dateFormat: "d M, Y",
-                  }}
-                  onChange={(e) =>
-                    dateformate(e)
-                  }
-                  value={validation.values.dueDate || ""}
-                />
-                {validation.touched.dueDate && validation.errors.dueDate ? (
-                  <FormFeedback type="invalid">{validation.errors.dueDate}</FormFeedback>
-                ) : null}
-              </Col> */}
-              <Col lg={12}>
-                <Label for="ticket-status" className="form-label">Status</Label>
-                <Input
-                  name="status"
-                  type="select"
-                  className="form-select"
-                  id="ticket-field"
-                  onChange={validation.handleChange}
-                  onBlur={validation.handleBlur}
-                  value={
-                    validation.values.status || ""
-                  }
-                >
-                  <option value="">Status</option>
-                  <option value="New">New</option>
-                  <option value="Inprogress">Inprogress</option>
-                  <option value="Pending">Pending</option>
-                  <option value="Completed">Completed</option>
-                </Input>
-                {validation.touched.status &&
-                  validation.errors.status ? (
-                  <FormFeedback type="invalid">
-                    {validation.errors.status}
-                  </FormFeedback>
-                ) : null}
-              </Col>
-              <Col lg={12}>
-                <Label for="priority-field" className="form-label">Priority</Label>
-                <Input
-                  name="priority"
-                  type="select"
-                  className="form-select"
-                  id="priority-field"
-                  onChange={validation.handleChange}
-                  onBlur={validation.handleBlur}
-                  value={
-                    validation.values.priority || ""
-                  }
-                >
-                  <option value="">Priority</option>
-                  <option value="High">High</option>
-                  <option value="Medium">Medium</option>
-                  <option value="Low">Low</option>
-                </Input>
-                {validation.touched.priority &&
-                  validation.errors.priority ? (
-                  <FormFeedback type="invalid">
-                    {validation.errors.priority}
-                  </FormFeedback>
-                ) : null}
+                    onChange={validation.handleChange}
+                    onBlur={validation.handleBlur}
+                    value={validation.values.description || ""}
+                    invalid={
+                      validation.touched.description && validation.errors.description ? true : false
+                    }
+                  />
+                  {validation.touched.description && validation.errors.description ? (
+                    <FormFeedback type="invalid">{validation.errors.description}</FormFeedback>
+                  ) : null}
+                </div>
               </Col>
             </Row>
           </ModalBody>

@@ -11,7 +11,7 @@ import Flatpickr from "react-flatpickr";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
-import { Col, Modal, ModalBody, Row, Label, Input, Button, ModalHeader, FormFeedback, Form } from 'reactstrap';
+import { Col, Modal, ModalBody, Row, Label, Input, Button, ModalHeader, FormFeedback, Form, Card, CardHeader, CardBody } from 'reactstrap';
 
 import {
   getTaskList,
@@ -26,7 +26,8 @@ import {
   taskTitle,
   DueDate,
   Status,
-  Priority
+  Priority,
+  Backlog
 } from "./TaskListCol";
 
 // Formik
@@ -39,10 +40,12 @@ import { Link } from 'react-router-dom';
 //Import CK Editor
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import Dropzone from 'react-dropzone';
 
 
 
 const AllTasks = () => {
+
   const dispatch = useDispatch();
 
   const { taskList } = useSelector((state) => ({
@@ -159,7 +162,7 @@ const AllTasks = () => {
   
   const handleCkEditorChange = (event,editor) => {
     const data= editor.getData();
-    // console.log(data);
+    console.log(data);
   }
   // Update Data
   const handleCustomerClick = useCallback((arg) => {
@@ -216,6 +219,32 @@ const AllTasks = () => {
       setIsEdit(false);
     }
   }, [taskList]);
+
+  // Dropzone file upload
+  const [selectedFiles, setselectedFiles] = useState([]);
+  const [files, setFiles] = useState([]);
+
+  function handleAcceptedFiles(files) {
+    files.map(file =>
+      Object.assign(file, {
+        preview: URL.createObjectURL(file),
+        formattedSize: formatBytes(file.size),
+      })
+    );
+    setselectedFiles(files);
+  }
+     
+     // Formats the size
+  
+      function formatBytes(bytes, decimals = 2) {
+        if (bytes === 0) return "0 Bytes";
+        const k = 1024;
+        const dm = decimals < 0 ? 0 : decimals;
+        const sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
+
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
+    }
 
   const columns = useMemo(
     () => [
@@ -318,11 +347,11 @@ const AllTasks = () => {
           <div className="card" id="tasksList">
             <div className="card-header border-0">
               <div className="d-flex align-items-center">
-                <h5 className="card-title mb-0 flex-grow-1">All Tasks</h5>
+                <h5 className="card-title mb-0 flex-grow-1">Tasks of ( Backlog Name )</h5>
                 <div className="flex-shrink-0">
                   <button className="btn btn-danger add-btn me-1" onClick={() => { setIsEdit(false); toggle(); }}><i className="ri-add-line align-bottom me-1"></i> Create Task</button>
-                  <button className="btn btn-soft-danger"
-                  ><i className="ri-delete-bin-2-line"></i></button>
+                  {/* <button className="btn btn-soft-danger"
+                  ><i className="ri-delete-bin-2-line"></i></button> */}
                 </div>
               </div>
             </div>
@@ -470,7 +499,8 @@ const AllTasks = () => {
                   <FormFeedback type="invalid">{validation.errors.dueDate}</FormFeedback>
                 ) : null}
               </Col> */}
-              <Col lg={12}>
+              <Row>
+              <Col lg={6}>
                 <Label for="ticket-status" className="form-label">Status</Label>
                 <Input
                   name="status"
@@ -496,7 +526,7 @@ const AllTasks = () => {
                   </FormFeedback>
                 ) : null}
               </Col>
-              <Col lg={12}>
+              <Col lg={6}>
                 <Label for="priority-field" className="form-label">Priority</Label>
                 <Input
                   name="priority"
@@ -516,12 +546,81 @@ const AllTasks = () => {
                 </Input>
                 {validation.touched.priority &&
                   validation.errors.priority ? (
-                  <FormFeedback type="invalid">
+                    <FormFeedback type="invalid">
                     {validation.errors.priority}
                   </FormFeedback>
                 ) : null}
               </Col>
+                </Row>
             </Row>
+            <Card style={{marginTop: 30}}>
+              <CardHeader >
+                  <h5 className="card-title mb-0">Attached files</h5>
+              </CardHeader>
+              <CardBody>
+                  <div>
+                      <p className="text-muted">Add Attached files here.</p>
+
+                      <Dropzone
+                          onDrop={acceptedFiles => {
+                          handleAcceptedFiles(acceptedFiles);
+                          }}
+                      >
+                          {({ getRootProps, getInputProps }) => (
+                          <div className="dropzone dz-clickable">
+                              <div
+                              className="dz-message needsclick"
+                              {...getRootProps()}
+                              >
+                              <div className="mb-3">
+                                  <i className="display-4 text-muted ri-upload-cloud-2-fill" />
+                              </div>
+                              <h5>Drop files here or click to upload.</h5>
+                              </div>
+                          </div>
+                          )}
+                      </Dropzone>
+
+                      <ul className="list-unstyled mb-0" id="dropzone-preview">
+                      
+                      {selectedFiles.map((f, i) => {
+                          return (
+                              <Card
+                              className="mt-1 mb-0 shadow-none border dz-processing dz-image-preview dz-success dz-complete"
+                              key={i + "-file"}
+                              >
+                              <div className="p-2">
+                                  <Row className="align-items-center">
+                                  <Col className="col-auto">
+                                      <img
+                                      data-dz-thumbnail=""
+                                      height="80"
+                                      className="avatar-sm rounded bg-light"
+                                      alt={f.name}
+                                      src={f.preview}
+                                      />
+                                  </Col>
+                                  <Col>
+                                      <Link
+                                      to="#"
+                                      className="text-muted font-weight-bold"
+                                      >
+                                      {f.name}
+                                      </Link>
+                                      <p className="mb-0">
+                                      <strong>{f.formattedSize}</strong>
+                                      </p>
+                                  </Col>
+                                  </Row>
+                              </div>
+                              </Card>
+                          );
+                      })}
+                      </ul>
+
+                  </div>
+              </CardBody>
+          </Card>
           </ModalBody>
           <div className="modal-footer">
             <div className="hstack gap-2 justify-content-end">

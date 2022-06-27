@@ -7,29 +7,40 @@ import {
 } from "./actionTypes";
 
 const initialState = {
-  error: "",
+  error: null,
   loading: false,
 };
 
-const login = (state = initialState, action) => {
+const Login = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_USER:
       state = {
         ...state,
         loading: true,
+        error: null,
       };
       break;
     case LOGIN_SUCCESS:
       state = {
         ...state,
+        error: null,
         loading: false,
       };
       break;
     case LOGOUT_USER:
-      state = { ...state, isUserLogout: false };
+      state = { 
+        ...state, 
+        error: null,
+        isUserLogout: false,
+        
+      };
       break;
-    case LOGOUT_USER_SUCCESS:
-      state = { ...state, isUserLogout: true };
+      case LOGOUT_USER_SUCCESS:
+        state = { 
+          ...state, 
+          error: null,
+          isUserLogout: true
+      };
       break;
     case API_ERROR:
       state = {
@@ -46,4 +57,4 @@ const login = (state = initialState, action) => {
   return state;
 };
 
-export default login;
+export default Login;

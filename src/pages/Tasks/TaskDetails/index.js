@@ -15,11 +15,10 @@ const TaskDetails = () => {
                     <BreadCrumb title="Tasks Details" pageTitle="Tasks" />
                     <Row>
                         <Col xxl={3}>
-                            {/* <TimeTracking /> */}
                         </Col>
                         <Col xxl={9}>
                             <Details />
-                            <Comments />
+                            {/* <Comments /> */}
                         </Col>
                     </Row>
                 </Container>

@@ -11,6 +11,7 @@ import {
   messages,
   allTask,
   allBacklog,
+  allSprint,
   channelsList,
   // projectList,
   mailbox,
@@ -393,6 +394,62 @@ const fakeBackend = () => {
           resolve([200, config.headers.backlog]);
         } else {
           reject([400, "Cannot delete backlog"]);
+        }
+      });
+    });
+  });
+
+
+  //SPRINTS
+
+
+  mock.onGet(url.GET_SPRINT_LIST).reply(() => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (allSprint) {
+          // Passing fake JSON data as response
+          resolve([200, allSprint]);
+        } else {
+          reject([400, "Cannot get Sprint List Data"]);
+        }
+      });
+    });
+  });
+
+  mock.onPost(url.ADD_NEW_SPRINT).reply(sprint => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (sprint && sprint.data) {
+          // Passing fake JSON data as response
+          resolve([200, sprint.data]);
+        } else {
+          reject([400, "Cannot add sprint"]);
+        }
+      });
+    });
+  });
+
+  mock.onPut(url.UPDATE_SPRINT).reply(sprint => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (sprint && sprint.data) {
+          // Passing fake JSON data as response
+          resolve([200, sprint.data]);
+        } else {
+          reject([400, "Cannot update sprint"]);
+        }
+      });
+    });
+  });
+
+  mock.onDelete(url.DELETE_SPRINT).reply(config => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (config && config.headers) {
+          // Passing fake JSON data as response
+          resolve([200, config.headers.sprint]);
+        } else {
+          reject([400, "Cannot delete sprint"]);
         }
       });
     });

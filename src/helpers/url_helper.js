@@ -37,6 +37,12 @@ export const ADD_NEW_BACKLOG = "/add/backlog";
 export const UPDATE_BACKLOG = "/update/backlog";
 export const DELETE_BACKLOG = "/delete/backlog";
 
+//Sprint
+export const GET_SPRINT_LIST = "/sprint-list";
+export const ADD_NEW_SPRINT = "/add/sprint";
+export const UPDATE_SPRINT = "/update/sprint";
+export const DELETE_SPRINT = "/delete/sprint";
+
 //Task
 export const GET_TASK_LIST = "/task-list";
 export const ADD_NEW_TASK = "/add/task";

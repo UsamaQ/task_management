@@ -15,6 +15,7 @@
     "@testing-library/react": "^12.1.3",
     "@testing-library/user-event": "^13.5.0",
     "@vtaits/react-color-picker": "^0.1.2",
+    "alloyfinger": "^0.1.16",
     "aos": "^2.3.4",
     "apexcharts": "^3.33.1",
     "autoprefixer": "^10.4.7",
@@ -62,6 +63,7 @@
     "react-google-login": "^5.2.2",
     "react-i18next": "^11.15.3",
     "react-image-lightbox": "^5.1.4",
+    "react-imageslides": "^3.0.0-beta.2",
     "react-jvectormap": "^0.0.16",
     "react-leaflet": "^3.2.5",
     "react-masonry-component": "^6.3.0",
@@ -87,6 +89,7 @@
     "remixicon-react": "^1.0.0",
     "save": "^2.4.0",
     "simplebar-react": "^2.3.6",
+    "styled-components": "^5.3.5",
     "swiper": "^8.0.6",
     "web-vitals": "^2.1.4",
     "yup": "^0.32.11"

@@ -1,5 +1,5 @@
-import React from 'react';
-import { Card, CardBody, Col, Container, Input, Label, Row, Button, Form, FormFeedback } from 'reactstrap';
+import React, { useEffect } from 'react';
+import { Card, CardBody, Col, Container, Input, Label, Row, Button, Form, FormFeedback, Alert } from 'reactstrap';
 import ParticlesAuth from "../AuthenticationInner/ParticlesAuth";
 
 //redux
@@ -16,7 +16,7 @@ import { GoogleLogin } from "react-google-login";
 // import TwitterLogin from "react-twitter-auth"
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 // actions
-import { loginUser, socialLogin } from "../../store/actions";
+import { loginUser, socialLogin, apiError } from "../../store/actions";
 
 //Import config
 import { facebook, google } from "../../config";
@@ -34,8 +34,8 @@ const Login = (props) => {
         enableReinitialize: true,
 
         initialValues: {
-            email: "admin@themesbrand.com" || '',
-            password: "123456" || '',
+            email: '',
+            password: '',
         },
         validationSchema: Yup.object({
             email: Yup.string().required("Please Enter Your Email"),
@@ -46,42 +46,46 @@ const Login = (props) => {
         }
     });
 
-    const { error } = useSelector(state => ({
-        error: state.Login.error,
-    }));
+   
 
-    const signIn = (res, type) => {
-        if (type === "google" && res) {
-            const postData = {
-                name: res.profileObj.name,
-                email: res.profileObj.email,
-                token: res.tokenObj.access_token,
-                idToken: res.tokenId,
-            };
-            dispatch(socialLogin(postData, props.history, type));
-        } else if (type === "facebook" && res) {
-            const postData = {
-                name: res.name,
-                email: res.email,
-                token: res.accessToken,
-                idToken: res.tokenId,
-            };
-            dispatch(socialLogin(postData, props.history, type));
-        }
-    };
+    // const signIn = (res, type) => {
+    //     if (type === "google" && res) {
+    //         const postData = {
+    //             name: res.profileObj.name,
+    //             email: res.profileObj.email,
+    //             token: res.tokenObj.access_token,
+    //             idToken: res.tokenId,
+    //         };
+    //         dispatch(socialLogin(postData, props.history, type));
+    //     } else if (type === "facebook" && res) {
+    //         const postData = {
+    //             name: res.name,
+    //             email: res.email,
+    //             token: res.accessToken,
+    //             idToken: res.tokenId,
+    //         };
+    //         dispatch(socialLogin(postData, props.history, type));
+    //     }
+    // };
 
-    //handleGoogleLoginResponse
-    const googleResponse = response => {
-        signIn(response, "google");
-    };
+    // //handleGoogleLoginResponse
+    // const googleResponse = response => {
+    //     signIn(response, "google");
+    // };
 
-    //handleTwitterLoginResponse
-    // const twitterResponse = e => {}
+    // //handleTwitterLoginResponse
+    // // const twitterResponse = e => {}
 
-    //handleFacebookLoginResponse
-    const facebookResponse = response => {
-        signIn(response, "facebook");
-    };
+    // //handleFacebookLoginResponse
+    // const facebookResponse = response => {
+    //     signIn(response, "facebook");
+    // };
+
+    useEffect(() => {
+        dispatch(apiError(""));
+    }, [dispatch]);
+
+
     return (
         <React.Fragment>
             <ParticlesAuth>
@@ -116,6 +120,12 @@ const Login = (props) => {
                                                     return false;
                                                 }}
                                                 action="#">
+
+
+
+                                                    <Alert id='errorMsg' style={{display: 'none'}} color="danger"></Alert>
+
+
 
                                                 <div className="mb-3">
                                                     <Label htmlFor="email" className="form-label">Email</Label>
@@ -170,7 +180,7 @@ const Login = (props) => {
                                                     <Button color="success" className="btn btn-success w-100" type="submit">Sign In</Button>
                                                 </div>
 
-                                                <div className="mt-4 text-center">
+                                                {/* <div className="mt-4 text-center">
                                                     <div className="signin-other-title">
                                                         <h5 className="fs-13 mb-4 title">Sign In with</h5>
                                                     </div>
@@ -180,7 +190,7 @@ const Login = (props) => {
                                                         <Button color="dark" className="btn-icon"><i className="ri-github-fill fs-16"></i></Button>{" "}
                                                         <Button color="info" className="btn-icon"><i className="ri-twitter-fill fs-16"></i></Button>
                                                     </div>
-                                                </div>
+                                                </div> */}
                                             </Form>
                                         </div>
                                     </CardBody>

@@ -6,24 +6,24 @@ import RenderCardTitle from "./HeaderComponets";
 
 const UncontrolledBoard = props => {
   const content = props.board;
+  console.log(props);
+  console.log(content.columns.length);
   return (
     <React.Fragment>
       <Row className="mb-4">
         <Col>
+        {/* {console.log("usama")} */}
           <Board
             initialBoard={content}
-            renderColumnHeader={({ name, badge, badgeClass }) => (
-              <RenderCardTitle name={name} badge={badge} badgeClass={badgeClass} />
+            renderColumnHeader={({ status }) => (
+              <RenderCardTitle status={status} />
             )}
             renderCard={(data, { dragging }) => (
               <CardTaskBox data={data} dragging={dragging}>
+                {console.log("Data Card")}
                 {data}
               </CardTaskBox>
             )}
-            onNewCardConfirm={draftCard => ({
-              id: new Date().getTime(),
-              ...draftCard,
-            })}
           />
         </Col>
       </Row>

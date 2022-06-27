@@ -8,6 +8,10 @@ import {
     UPDATE_BACKLOG_FAIL,
     DELETE_BACKLOG_SUCCESS,
     DELETE_BACKLOG_FAIL,
+    GET_BACKLOG_DETAIL,
+    GET_BACKLOG_DETAIL_SUCCESS,
+    GET_BACKLOG_DETAIL_FAIL,
+    GET_ON_KEY_PRESS_BACKLOG_LIST
 } from "./actionType";
 
 const INIT_STATE = {
@@ -19,6 +23,11 @@ const Backlogs = (state = INIT_STATE, action) => {
         case API_RESPONSE_SUCCESS:
             switch (action.payload.actionType) {
                 case GET_BACKLOG_LIST:
+                    return {
+                        ...state,
+                        backlogList: action.payload.data,
+                    };
+                case GET_ON_KEY_PRESS_BACKLOG_LIST:
                     return {
                         ...state,
                         backlogList: action.payload.data,
@@ -35,6 +44,11 @@ const Backlogs = (state = INIT_STATE, action) => {
                         ...state,
                         error: action.payload.error,
                     };
+                case GET_ON_KEY_PRESS_BACKLOG_LIST:
+                    return {
+                        ...state,
+                        error: action.payload.error,
+                    };
 
                 default:
                     return { ...state };
@@ -45,6 +59,40 @@ const Backlogs = (state = INIT_STATE, action) => {
                 ...state,
             };
         }
+
+        case GET_ON_KEY_PRESS_BACKLOG_LIST: {
+            return {
+                ...state,
+            };
+        }
+
+        case GET_BACKLOG_DETAIL: {
+            return {
+                ...state,
+            };
+        }
+
+        case GET_BACKLOG_DETAIL_SUCCESS:
+            return {
+                ...state,
+                backlogList: action.payload.data
+            };
+
+            // case GET_BACKLOG_DETAIL_SUCCESS:
+            //     return {
+            //         ...state,
+            //         backlogList: state.backlogList.map(backlog =>
+            //             backlog.id.toString() === action.payload.id.toString()
+            //                 ? { backlog, ...action.payload }
+            //                 : backlog
+            //         ),
+            //     };
+
+        case GET_BACKLOG_DETAIL_FAIL:
+            return {
+                ...state,
+                error: action.payload.error,
+            };
 
         case ADD_BACKLOG_SUCCESS:
             return {

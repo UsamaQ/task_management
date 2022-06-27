@@ -12,7 +12,7 @@ export const getLoggedInUser = () => {
   return null;
 };
 
-// //is user is logged in
+//is user is logged in
 export const isUserAuthenticated = () => {
   return getLoggedInUser() !== null;
 };
@@ -77,6 +77,11 @@ export const postJwtRegister = (url, data) => {
       throw message;
     });
 };
+
+
+
+
+
 // Login Method
 export const postJwtLogin = data => api.create(url.POST_FAKE_JWT_LOGIN, data);
 
@@ -119,7 +124,13 @@ export const getChannels = () => api.get(url.GET_CHANNELS);
 
 
 
+
+
 // Backlogs
+
+
+
+
 
 // get Backlog
 export const getBacklogList = () => api.get(url.GET_BACKLOG_LIST);
@@ -133,24 +144,34 @@ export const updateBacklog = backlog => api.update(url.UPDATE_BACKLOG, backlog);
 // delete Backlog
 export const deleteBacklog = backlog => api.delete(url.DELETE_BACKLOG, { headers: { backlog } });
 
-//Ecommerce
 
-// // get Products
-// export const getProducts = () => api.get(url.GET_PRODUCTS);
-// // get Orders
-// export const getOrders = () => api.get(url.GET_ORDERS);
 
-// // add order
-// export const addNewOrder = order => api.create(url.ADD_NEW_ORDER, order);
 
-// // update order
-// export const updateOrder = order => api.update(url.UPDATE_ORDER, order);
 
-// // delete order
-// export const deleteOrder = order => api.delete(url.DELETE_ORDER, { headers: { order } });
+// Sprints
 
-// // get Sellers
-// export const getSellers = () => api.get(url.GET_SELLERS);
+
+
+
+
+// get Sprint
+export const getSprintList = () => api.get(url.GET_SPRINT_LIST);
+
+// add Sprint
+export const addNewSprint = sprint => api.create(url.ADD_NEW_SPRINT, sprint);
+
+// update Sprint
+export const updateSprint = sprint => api.update(url.UPDATE_SPRINT, sprint);
+
+// delete Sprint
+export const deleteSprint = sprint => api.delete(url.DELETE_SPRINT, { headers: { sprint } });
+
+
+
+
+//Tasks
+
+
 
 
 // get Task
@@ -166,67 +187,8 @@ export const updateTask = task => api.update(url.UPDATE_TASK, task);
 export const deleteTask = task => api.delete(url.DELETE_TASK, { headers: { task } });
 
 
-// // get Customers
-// export const getCustomers = () => api.get(url.GET_CUSTOMERS);
-
-// // add CUSTOMER
-// export const addNewCustomer = customer => api.create(url.ADD_NEW_CUSTOMER, customer);
-
-// // update CUSTOMER
-// export const updateCustomer = customer => api.update(url.UPDATE_CUSTOMER, customer);
-
-// // delete CUSTOMER
-// export const deleteCustomer = customer => api.delete(url.DELETE_CUSTOMER, { headers: { customer } });
-
-
-
-// //Crm
-
-// // get Contacts
-// export const getContacts = () => api.get(url.GET_CONTACTS);
-
-// // add Contact
-// export const addNewContact = contact => api.create(url.ADD_NEW_CONTACT, contact);
-
-// // update Contact
-// export const updateContact = contact => api.update(url.UPDATE_CONTACT, contact);
-
-// // delete Contact
-// export const deleteContact = contact => api.delete(url.DELETE_CONTACT, { headers: { contact } });
-
-// // get Companies
-// export const getCompanies = () => api.get(url.GET_COMPANIES);
-
-// // add Companies
-// export const addNewCompanies = company => api.create(url.ADD_NEW_COMPANIES, company);
-
-// // update Companies
-// export const updateCompanies = company => api.update(url.UPDATE_COMPANIES, company);
-
-// // delete Companies
-// export const deleteCompanies = company => api.delete(url.DELETE_COMPANIES, { headers: { company } });
-
-// // get Deals
-// export const getDeals = () => api.get(url.GET_DEALS);
-
-// // get leads
-// export const getLeads = () => api.get(url.GET_LEADS);
-
-// // add Lead
-// export const addNewLead = lead => api.create(url.ADD_NEW_LEAD, lead);
-
-// // update Lead
-// export const updateLead = lead => api.update(url.UPDATE_LEAD, lead);
-
-// // delete Lead
-// export const deleteLead = lead => api.delete(url.DELETE_LEAD, { headers: { lead } });
-
-
 //get mail
 export const getMailDetails = () => api.get(url.GET_MAIL_DETAILS);
 
 //delete mail
 export const deleteMail = forId => api.delete(url.DELETE_MAIL, { headers: { forId } });
-
-// //product
-// export const deleteProducts = product => api.delete(url.DELETE_PRODUCT, { headers: { product } });

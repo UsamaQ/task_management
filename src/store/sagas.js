@@ -12,10 +12,18 @@ import calendarSaga from "./calendar/saga";
 //chat
 import chatSaga from "./chat/saga";
 
-//Project
+//Backlog
 import backlogSaga from "./backlogs/saga";
+
+//Sprint
+import sprintSaga from "./sprints/saga";
+
 // Task
 import taskSaga from "./tasks/saga";
+
+// SubTask
+import subTaskSaga from "./subTasks/saga";
+
 // Mail
 import mailboxSaga from "./mailbox/saga";
 
@@ -29,7 +37,9 @@ export default function* rootSaga() {
     fork(ProfileSaga),
     fork(chatSaga),
     fork(backlogSaga),
+    fork(sprintSaga),
     fork(taskSaga),
+    fork(subTaskSaga),
     fork(calendarSaga),
     fork(mailboxSaga),
   ]);

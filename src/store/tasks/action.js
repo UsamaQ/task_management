@@ -1,5 +1,9 @@
 import {
   GET_TASK_LIST,
+  GET_BACKLOG_TASK_LIST,
+  GET_SPRINT_TASK_LIST,
+  GET_BACKLOG_TASK_DETAIL,
+  GET_SPRINT_TASK_DETAIL,
   API_RESPONSE_SUCCESS,
   API_RESPONSE_ERROR,
   ADD_NEW_TASK,
@@ -11,6 +15,10 @@ import {
   DELETE_TASK,
   DELETE_TASK_SUCCESS,
   DELETE_TASK_FAIL,
+  GET_TASK_DETAIL,
+  GET_TASKBOARD_TASK_LIST,
+  GET_LINE_CHART_TASK_LIST,
+  GET_STATUS_CHART_TASK_LIST,
 } from "./actionType";
 
 // common success
@@ -26,6 +34,46 @@ export const TaskApiResponseError = (actionType, error) => ({
 
 export const getTaskList = () => ({
   type: GET_TASK_LIST,
+});
+
+export const getTaskBoardTaskList = () => ({
+  type: GET_TASKBOARD_TASK_LIST,
+});
+
+export const getLineChartTaskList = () => ({
+  type: GET_LINE_CHART_TASK_LIST,
+});
+
+export const getStatusChartTaskList = () => ({
+  type: GET_STATUS_CHART_TASK_LIST,
+});
+
+export const getBacklogTaskList = task => ({
+  type: GET_BACKLOG_TASK_LIST,
+  payload: task,
+
+});
+
+export const getSprintTaskList = task => ({
+  type: GET_SPRINT_TASK_LIST,
+  payload: task,
+});
+
+export const getTaskDetail = task => ({
+  type: GET_TASK_DETAIL,
+  payload: task,
+
+});
+
+export const getBacklogTaskDetail = task => ({
+  type: GET_BACKLOG_TASK_DETAIL,
+  payload: task,
+
+});
+
+export const getSprintTaskDetail = task => ({
+  type: GET_SPRINT_TASK_DETAIL,
+  payload: task,
 });
 
 export const updateTask = task => ({

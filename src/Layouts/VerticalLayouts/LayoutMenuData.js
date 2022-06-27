@@ -12,6 +12,7 @@ const Navdata = () => {
 
     // Apps
     const [isBacklogs, setIsBacklogs] = useState(false);
+    const [isSprints, setIsSprints] = useState(false);
     const [isTasks, setIsTasks] = useState(false);
 
     // Authentication
@@ -84,8 +85,14 @@ const Navdata = () => {
             subItems: [
                 { 
                     id: 1, 
-                    label: "Kanban Board", 
+                    label: "Dashboard", 
                     link: "/apps-tasks-kanban",
+                    parentId: "dashboard", 
+                },
+                { 
+                    id: 2, 
+                    label: "Tasks Board", 
+                    link: "/apps-tasks-board",
                     parentId: "dashboard", 
                 },
             ],
@@ -104,44 +111,39 @@ const Navdata = () => {
             stateVariables: isApps,
             subItems: [
                 {
-                    id: "appsbacklogs",
+                    id: "appsBacklogs",
                     label: "Backlogs",
-                    link: "/#",
-                    isChildItem: true,
-                    click: function (e) {
-                        e.preventDefault();
-                        setIsBacklogs(!isBacklogs);
-                    },
+                    link: "/apps-backlogs-list",
                     parentId: "apps",
-                    stateVariables: isBacklogs,
-                    childItems: [
-                        { id: 1, label: "List", link: "/apps-backlogs-list", parentId: "apps", },
-                        { id: 2, label: "Overview", link: "/apps-backlogs-overview", parentId: "apps", },
-                        { id: 3, label: "Create Backlog", link: "/apps-backlogs-create", parentId: "apps", },
-                    ]
                 },
                 {
-                    id: "tasks",
-                    label: "Tasks",
-                    link: "/#",
-                    isChildItem: true,
-                    click: function (e) {
-                        e.preventDefault();
-                        setIsTasks(!isTasks);
-                    },
+                    id: "appsSprints",
+                    label: "Sprints",
+                    link: "/apps-sprints-list",
                     parentId: "apps",
-                    stateVariables: isTasks,
-                    childItems: [
-                        { 
-                            id: 1, 
-                            label: "Kanban Board", 
-                            link: "/apps-tasks-kanban", 
-                            parentId: "apps", 
-                        },
-                        { id: 2, label: "List View", link: "/apps-tasks-list-view", parentId: "apps", },
-                        { id: 3, label: "Task Details", link: "/apps-tasks-details", parentId: "apps", },
-                    ]
                 },
+                // {
+                //     id: "tasks",
+                //     label: "Tasks",
+                //     link: "/#",
+                //     isChildItem: true,
+                //     click: function (e) {
+                //         e.preventDefault();
+                //         setIsTasks(!isTasks);
+                //     },
+                //     parentId: "apps",
+                //     stateVariables: isTasks,
+                //     childItems: [
+                //         { 
+                //             id: 1, 
+                //             label: "Kanban Board", 
+                //             link: "/apps-tasks-kanban", 
+                //             parentId: "apps", 
+                //         },
+                //         { id: 2, label: "List View", link: "/apps-tasks-list-view", parentId: "apps", },
+                //         { id: 3, label: "Task Details", link: "/apps-tasks-details", parentId: "apps", },
+                //     ]
+                // },
             ],
         },
         {
