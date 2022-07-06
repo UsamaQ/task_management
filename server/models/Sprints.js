@@ -12,15 +12,15 @@ module.exports = (sequelize, DataTypes) => {
     },
     description: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     startDate: {
       type: DataTypes.DATEONLY,
-      allowNull: false,
+      allowNull: true,
     },
     dueDate: {
       type: DataTypes.DATEONLY,
-      allowNull: false,
+      allowNull: true,
     },
     status: {
       type: DataTypes.ENUM('Active', 'Inactive', 'Completed', 'Cancelled'),
@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     assignedBy: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
     }
   });
 

@@ -1,9 +1,11 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
+// const path = require('path')
 
 app.use(express.json());
 app.use(cors());
+// app.use(express.static(path.join(__dirname + "public")))
 
 const db = require("./models");
 
@@ -16,6 +18,9 @@ app.use("/backlogs", backlogsRouter);
 
 const tasksRouter = require("./routes/Tasks");
 app.use("/tasks", tasksRouter);
+
+const labelRouter = require("./routes/Labels");
+app.use("/labels", labelRouter);
 
 const subTasksRouter = require("./routes/SubTasks");
 app.use("/subTasks", subTasksRouter);

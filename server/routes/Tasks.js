@@ -5,14 +5,29 @@ var Sequelize = require('sequelize');
 const { QueryTypes } = require('sequelize');
 const db = require("../models");
 
+// const user = req.params.body;
 
-router.post("/", async (req, res) => {
-  const listOfTasks = await Tasks.findAll();
+router.post("/:user", async (req, res) => {
+  const user = req.params.user;
+  console.log(user);
+  const listOfTasks = await Tasks.findAll({
+    where : {
+      assignedBy : user, 
+    }
+  });
   res.json(listOfTasks);
 });
 
-router.post("/line-chart", async (req, res) => {
-  const listOfTasks = await db.sequelize.query("SELECT COUNT(*) as total, MONTH(dueDate) as month FROM `tasks` WHERE YEAR(dueDate) = YEAR(CURRENT_DATE) GROUP BY MONTH(dueDate)", { type: QueryTypes.SELECT });
+router.post("/line-chart/:user", async (req, res) => {
+  const user = req.params.user;
+  const listOfTasks = await db.sequelize.query(`SELECT COUNT(*) as total, MONTH(dueDate) as month FROM tasks WHERE YEAR(dueDate) = YEAR(CURRENT_DATE) AND assignedBy = ${user} GROUP BY MONTH(dueDate)`, { type: QueryTypes.SELECT });
+  res.json(listOfTasks);
+  console.log(listOfTasks);
+});
+
+router.post("/status-chart/:user", async (req, res) => {
+  const user = req.params.user;
+  const listOfTasks = await db.sequelize.query(`SELECT COUNT(status) as status FROM tasks WHERE assignedBy = ${user} GROUP BY status;`, { type: QueryTypes.SELECT });
   res.json(listOfTasks);
   console.log(listOfTasks);
 });
@@ -58,14 +73,13 @@ router.post("/backlog/task/overview/:id", async (req, res) => {
     }
   });
   res.json(taskDetail);
-  console.log(taskDetail);
 });
 
 router.post("/sprint/task/overview/:id", async (req, res) => {
   const id = req.params.id;
   const taskDetail = await Tasks.findAll({
     where: {
-      id: id
+      id: id,
     }
   });
   res.json(taskDetail);
@@ -86,7 +100,20 @@ router.post("/update/task", async (req, res) => {
       id: task.id
     }
   });
-  res.json(taskToUpdate);
+  res.json(task);
+});
+
+router.post("/updateTaskBySprint/task", async (req, res) => {
+  const { task, sprintId } = req.body;
+  console.log(task, parseInt(sprintId));
+  for (let index = 0; index < task.length; index++) {
+    const taskToUpdate = await Tasks.update({sprintID: parseInt(sprintId)}, {
+      where: {
+        id: task[index]
+      }
+    });
+    res.json(taskToUpdate)
+  }
 });
 
 

@@ -4,8 +4,13 @@ const { Sprints } = require("../models");
 const bcrypt = require("bcrypt");
 const {sign} = require ('jsonwebtoken')
 
-router.post("/", async (req, res) => {
-  const listOfSprints = await Sprints.findAll();
+router.post("/:user", async (req, res) => {
+  const user = req.params.user;
+  const listOfSprints = await Sprints.findAll({
+    where : {
+      assignedBy : user, 
+    }
+  });
   res.json(listOfSprints);
 });
 
@@ -20,9 +25,15 @@ router.post("/sprint-overview/:id", async (req, res) => {
   console.log(sprintDetail);
 });
 
-router.post("/add-sprint", async (req, res) => {
+router.post("/add/sprint", async (req, res) => {
   const sprint = req.body;
   await Sprints.create(sprint);
+  const currentId = await Sprints.findOne({
+    order: [
+      ['id', 'DESC'],
+  ],
+  });
+sprint.id = currentId.id;
   res.json(sprint);
 });
 
@@ -38,7 +49,7 @@ router.post("/update-sprint", async (req, res) => {
 });
 
 
-router.post("/delete-sprint", async (req, res) => {
+router.post("/delete/sprint", async (req, res) => {
   const sprint = req.body;
   const sprintToDelete = await Sprints.destroy({
     where: {

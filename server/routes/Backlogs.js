@@ -1,18 +1,21 @@
 const express = require("express");
 const router = express.Router();
 const { Backlogs } = require("../models");
-const bcrypt = require("bcrypt");
-const {sign} = require ('jsonwebtoken')
 const { Op } = require("sequelize");
 
-router.post("/", async (req, res) => {
-  const listOfBacklogs = await Backlogs.findAll();
+
+router.post("/:user", async (req, res) => {
+  const user = req.params.user;
+  const listOfBacklogs = await Backlogs.findAll({
+    where : {
+      assignedBy : user, 
+    }
+  });
   res.json(listOfBacklogs);
 });
 
 router.post("/search-backlog/:search", async (req, res) => {
   const search = req.params.search;
-  console.log('AAAAA SEARCH WORKING          '+search);
   const listOfBacklogs = await Backlogs.findAll({
     where : {
       title : {
@@ -25,7 +28,6 @@ router.post("/search-backlog/:search", async (req, res) => {
 
 router.post("/backlog-overview/:id", async (req, res) => {
   const id = req.params.id;
-  console.log("usama");
   const backlogDetail = await Backlogs.findAll({
     where: {
       id: id
@@ -34,24 +36,37 @@ router.post("/backlog-overview/:id", async (req, res) => {
   res.json(backlogDetail);
 });
 
-router.post("/add-backlog", async (req, res) => {
+router.post("/add/backlog", async (req, res) => {
   const backlog = req.body;
+  console.log(backlog);
   await Backlogs.create(backlog);
+
+  // ============================================
+
+  const currentId = await Backlogs.findOne({
+    order: [
+      ['id', 'DESC'],
+  ],
+  });
+backlog.id = currentId.id;
+
+  // ============================================
+
   res.json(backlog);
 });
 
-router.post("/update-backlog", async (req, res) => {
+router.post("/update/backlog", async (req, res) => {
   const backlog = req.body;
   const backlogToUpdate = await Backlogs.update(backlog, {
     where: {
       id: backlog.id
     }
   });
-  res.json(backlogToUpdate);
+  res.json(backlog);
 });
 
 
-router.post("/delete-backlog", async (req, res) => {
+router.post("/delete/backlog", async (req, res) => {
   const backlog = req.body;
   const backlogToDelete = await Backlogs.destroy({
     where: {

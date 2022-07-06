@@ -5,9 +5,17 @@ const { SubTasks } = require("../models");
 
 // SUBTASKS
 
-router.post("/add/subTask", async (req, res) => {
+router.post("/add-subTask", async (req, res) => {
   const subTask = req.body;
   await SubTasks.create(subTask);
+
+  const currentId = await SubTasks.findOne({
+    order: [
+      ['id', 'DESC'],
+  ],
+  });
+  subTask.id = currentId.id;
+
   res.json(subTask);
 });
 
@@ -22,12 +30,21 @@ router.post("/:id", async (req, res) => {
 });
 
 router.post("/update/subTask", async (req, res) => {
-  const subTask = req.body;
-  const subTaskToUpdate = await SubTasks.update(subTask, {
+  
+  const { subTask, checkedValue } = req.body;
+  console.log(subTask, checkedValue)
+  const subTaskToUpdate = await SubTasks.update({isChecked: checkedValue}, {
     where: {
-      id: subTask.id
+      id: subTask
     }
   });
+  const isChecked = await SubTasks.findOne({
+    where: {
+      id: subTask
+    }
+  });
+  subTaskToUpdate.isChecked = isChecked.isChecked;
+
   res.json(subTaskToUpdate);
 });
 

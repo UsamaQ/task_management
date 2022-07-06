@@ -33,10 +33,10 @@ router.post("/login", async (req, res) => {
       res.json({ error: "Wrong Email And Password Combination" , status: 0});
       return;
     }
-    const accessToken = sign({email: user.email, id: user.id},
+    const accessToken = sign({email: user.email, id: user.id },
        "importantSecret"
        );
-    res.json(accessToken);
+    res.json({accessToken, id: user.id , status: 1});
   });
 });
 
