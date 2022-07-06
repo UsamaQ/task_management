@@ -11,6 +11,8 @@ export * from "./calendar/actions";
 export * from "./chat/action";
 //Backlog
 export * from "./backlogs/action";
+//User
+export * from "./users/action";
 //Sprint
 export * from "./sprints/action";
 // Task

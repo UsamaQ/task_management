@@ -14,6 +14,9 @@ import Calendar from "./calendar/reducer";
 //Chat
 import chat from "./chat/reducer";
 
+//Users
+import Users from "./users/reducer";
+
 //Backlogs
 import Backlogs from "./backlogs/reducer";
 
@@ -51,6 +54,7 @@ const appReducer = combineReducers({
     Backlogs,
     Sprints,
     Tasks,
+    Users,
     SubTasks,
     Labels,
     changeNumber,

@@ -3,6 +3,8 @@ const router = express.Router();
 const { Sprints } = require("../models");
 const bcrypt = require("bcrypt");
 const {sign} = require ('jsonwebtoken')
+const { Op } = require("sequelize");
+
 
 router.post("/:user", async (req, res) => {
   const user = req.params.user;
@@ -22,7 +24,18 @@ router.post("/sprint-overview/:id", async (req, res) => {
     }
   });
   res.json(sprintDetail);
-  console.log(sprintDetail);
+});
+
+router.post("/global/search-sprint/:search", async (req, res) => {
+  const search = req.params.search;
+  const listOfSprints = await Sprints.findAll({
+    where : {
+      title : {
+        [Op.like] : "%"+search+"%"
+      }
+    }
+  });
+  res.json(listOfSprints);
 });
 
 router.post("/add/sprint", async (req, res) => {
@@ -39,7 +52,6 @@ sprint.id = currentId.id;
 
 router.post("/update-sprint", async (req, res) => {
   const sprint = req.body;
-  console.log(sprint);
   const sprintToUpdate = await Sprints.update(sprint, {
     where: {
       id: sprint.id

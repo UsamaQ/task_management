@@ -20,6 +20,7 @@ import {
   GET_LINE_CHART_TASK_LIST,
   GET_STATUS_CHART_TASK_LIST,
   UPDATE_TASK_BY_SPRINTID,
+  GET_TASK_LIST_ON_GLOBAL_SEARCH,
 } from "./actionType";
 
 
@@ -66,6 +67,11 @@ export const getBacklogTaskList = task => ({
 export const getSprintTaskList = task => ({
   type: GET_SPRINT_TASK_LIST,
   payload: task,
+});
+
+export const getTaskListOnGlobalSearch = task => ({
+  type: GET_TASK_LIST_ON_GLOBAL_SEARCH,
+  payload:  task,
 });
 
 export const getTaskDetail = task => ({

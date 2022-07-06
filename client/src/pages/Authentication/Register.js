@@ -28,12 +28,10 @@ const Register = () => {
 
         initialValues: {
             email: '',
-            username: '',
             password: '',
         },
         validationSchema: Yup.object({
             email: Yup.string().required("Please Enter Your Email"),
-            username: Yup.string().required("Please Enter Your Username"),
             password: Yup.string().required("Please Enter Your Password"),
         }),
         onSubmit: (values) => {
@@ -115,26 +113,6 @@ const Register = () => {
                                                     ) : null}
                                                     {/* <div className="invalid-feedback">
                                                         Please enter email
-                                                    </div> */}
-                                                </div>
-                                                <div className="mb-3">
-                                                    <Label htmlFor="username" className="form-label">Username <span className="text-danger">*</span></Label>
-                                                    <Input
-                                                        name="username"
-                                                        type="text"
-                                                        placeholder="Enter username"
-                                                        onChange={validation.handleChange}
-                                                        onBlur={validation.handleBlur}
-                                                        value={validation.values.username || ""}
-                                                        invalid={
-                                                            validation.touched.username && validation.errors.username ? true : false
-                                                        }
-                                                    />
-                                                    {validation.touched.username && validation.errors.username ? (
-                                                        <FormFeedback type="invalid"><div>{validation.errors.username}</div></FormFeedback>
-                                                    ) : null}
-                                                    {/* <div className="invalid-feedback">
-                                                        Please enter username
                                                     </div> */}
                                                 </div>
 

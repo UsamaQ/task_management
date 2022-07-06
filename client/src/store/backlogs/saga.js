@@ -8,6 +8,7 @@ import {
     UPDATE_BACKLOG,
     GET_BACKLOG_DETAIL,
     GET_ON_KEY_PRESS_BACKLOG_LIST,
+    GET_BACKLOG_LIST_ON_GLOBAL_SEARCH,
 } from "./actionType";
 import {
     BacklogApiResponseSuccess,
@@ -48,6 +49,15 @@ function* getOnKeyPressBacklogList({ payload: search }) {
         yield put(BacklogApiResponseSuccess(GET_ON_KEY_PRESS_BACKLOG_LIST, response));
     } catch (error) {
         yield put(BacklogApiResponseError(GET_ON_KEY_PRESS_BACKLOG_LIST, error));
+    }
+}
+
+function* getBacklogListOnGlobalSearch({ payload: search }) {
+    try {
+        const response = yield call(axios.post, `http://localhost:3001/backlogs/global/search-backlog/${search}`);
+        yield put(BacklogApiResponseSuccess(GET_BACKLOG_LIST_ON_GLOBAL_SEARCH, response));
+    } catch (error) {
+        yield put(BacklogApiResponseError(GET_BACKLOG_LIST_ON_GLOBAL_SEARCH, error));
     }
 }
 
@@ -101,6 +111,10 @@ export function* watchGetOnKeyPressBacklogList() {
     yield takeEvery(GET_ON_KEY_PRESS_BACKLOG_LIST, getOnKeyPressBacklogList);
 }
 
+export function* watchGetBacklogListOnGlobalSearch() {
+    yield takeEvery(GET_BACKLOG_LIST_ON_GLOBAL_SEARCH, getBacklogListOnGlobalSearch);
+}
+
 export function* watchGetBacklogDetail() {
     yield takeEvery(GET_BACKLOG_DETAIL, getBacklogDetail);
 }
@@ -123,6 +137,7 @@ function* backlogSaga() {
     yield all([
         fork(watchGetBacklogList),
         fork(watchGetOnKeyPressBacklogList),
+        fork(watchGetBacklogListOnGlobalSearch),
         fork(watchGetBacklogDetail),
         fork(watchAddNewBacklog),
         fork(watchUpdateBacklog),

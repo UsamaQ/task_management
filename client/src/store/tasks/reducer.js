@@ -18,6 +18,7 @@ import {
     GET_STATUS_CHART_TASK_LIST,
     UPDATE_TASK_BY_SPRINTID_SUCCESS,
     UPDATE_TASK_BY_SPRINTID_FAIL,
+    GET_TASK_LIST_ON_GLOBAL_SEARCH,
 } from "./actionType";
 
 const INIT_STATE = {
@@ -30,6 +31,7 @@ const INIT_STATE = {
     sprintTaskDetail: [],
     lineChartTaskList: [],
     statusChartTaskList: [],
+    globalSearchTask: [],
 
 };
 
@@ -60,6 +62,12 @@ const Tasks = (state = INIT_STATE, action) => {
                     return {
                         ...state,
                         statusChartTaskList: action.payload.data,
+                    };
+
+                case GET_TASK_LIST_ON_GLOBAL_SEARCH:
+                    return {
+                        ...state,
+                        globalSearchTask: action.payload.data,
                     };
 
                 case GET_BACKLOG_TASK_LIST:
@@ -116,6 +124,12 @@ const Tasks = (state = INIT_STATE, action) => {
                         error: action.payload.error,
                     };
 
+                case GET_TASK_LIST_ON_GLOBAL_SEARCH:
+                    return {
+                        ...state,
+                        error: action.payload.error,
+                    }; 
+
                 case GET_BACKLOG_TASK_LIST:
                     return {
                         ...state,
@@ -166,6 +180,12 @@ const Tasks = (state = INIT_STATE, action) => {
         }
 
         case GET_STATUS_CHART_TASK_LIST: {
+            return {
+                ...state,
+            };
+        }
+
+        case GET_TASK_LIST_ON_GLOBAL_SEARCH:{
             return {
                 ...state,
             };

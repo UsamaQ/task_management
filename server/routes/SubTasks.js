@@ -32,7 +32,6 @@ router.post("/:id", async (req, res) => {
 router.post("/update/subTask", async (req, res) => {
   
   const { subTask, checkedValue } = req.body;
-  console.log(subTask, checkedValue)
   const subTaskToUpdate = await SubTasks.update({isChecked: checkedValue}, {
     where: {
       id: subTask

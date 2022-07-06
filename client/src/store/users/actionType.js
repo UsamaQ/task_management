@@ -1,0 +1,18 @@
+// Actions
+export const API_RESPONSE_SUCCESS = "API_RESPONSE_SUCCESS";
+export const API_RESPONSE_ERROR = "API_RESPONSE_ERROR";
+export const GET_USER_LIST = "GET_USER_LIST";
+
+/**
+ * Edit USER
+ */
+export const GET_USER_DETAIL = "GET_USER_DETAIL";
+export const GET_USER_DETAIL_SUCCESS = "GET_USER_DETAIL_SUCCESS";
+export const GET_USER_DETAIL_FAIL = "GET_USER_DETAIL_FAIL";
+
+/**
+ * Edit USER
+ */
+export const UPDATE_USER = "UPDATE_USER";
+export const UPDATE_USER_SUCCESS = "UPDATE_USER_SUCCESS";
+export const UPDATE_USER_FAIL = "UPDATE_USER_FAIL";

@@ -21,7 +21,6 @@ router.post("/:id", async (req, res) => {
       taskId: id
     }
   });
-  console.log(listOfLabel);
   res.json(listOfLabel);
 });
 

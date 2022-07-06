@@ -11,10 +11,13 @@ import {
     GET_SPRINT_DETAIL,
     GET_SPRINT_DETAIL_SUCCESS,
     GET_SPRINT_DETAIL_FAIL,
+    GET_SPRINT_LIST_ON_GLOBAL_SEARCH,
 } from "./actionType";
 
 const INIT_STATE = {
     sprintList: [],
+    globalSearchSprint: [],
+
 };
 
 const Sprints = (state = INIT_STATE, action) => {
@@ -25,6 +28,11 @@ const Sprints = (state = INIT_STATE, action) => {
                     return {
                         ...state,
                         sprintList: action.payload.data,
+                    };
+                case GET_SPRINT_LIST_ON_GLOBAL_SEARCH:
+                    return {
+                        ...state,
+                        globalSearchSprint: action.payload.data,
                     };
 
                 default:
@@ -38,6 +46,11 @@ const Sprints = (state = INIT_STATE, action) => {
                         ...state,
                         error: action.payload.error,
                     };
+                case GET_SPRINT_LIST_ON_GLOBAL_SEARCH:
+                    return {
+                        ...state,
+                        error: action.payload.error,
+                    }; 
 
                 default:
                     return { ...state };
@@ -50,6 +63,12 @@ const Sprints = (state = INIT_STATE, action) => {
         }
 
         case GET_SPRINT_DETAIL: {
+            return {
+                ...state,
+            };
+        }
+
+        case GET_SPRINT_LIST_ON_GLOBAL_SEARCH:{
             return {
                 ...state,
             };

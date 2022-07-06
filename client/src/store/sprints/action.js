@@ -14,6 +14,7 @@ import {
     GET_SPRINT_DETAIL,
     GET_SPRINT_DETAIL_SUCCESS,
     GET_SPRINT_DETAIL_FAIL,
+    GET_SPRINT_LIST_ON_GLOBAL_SEARCH,
   } from "./actionType";
 
 var user = sessionStorage.getItem("user");
@@ -32,6 +33,11 @@ var user = sessionStorage.getItem("user");
   export const getSprintList = () => ({
     type: GET_SPRINT_LIST,
     payload:  user,
+  });
+
+  export const getSprintListOnGlobalSearch = sprint => ({
+    type: GET_SPRINT_LIST_ON_GLOBAL_SEARCH,
+    payload:  sprint,
   });
 
   export const getSprintDetail =  sprint => ({

@@ -16,6 +16,16 @@ router.post("/", async (req, res) => {
   });
 });
 
+router.post("/login/:user", async (req, res) => {
+  const user = req.params.user;
+  const listOfTasks = await Users.findAll({
+    where : {
+      id : user, 
+    }
+  });
+  res.json(listOfTasks);
+});
+
 
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
@@ -23,7 +33,6 @@ router.post("/login", async (req, res) => {
   const user = await Users.findOne({ where: { email: email } });
 
   if (!user) {
-    console.log("not registered");
     res.json({ error: "User Doesn't Exist" , status: 0});
     return;
   }

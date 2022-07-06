@@ -14,7 +14,8 @@ import {
     GET_BACKLOG_DETAIL,
     GET_BACKLOG_DETAIL_SUCCESS,
     GET_BACKLOG_DETAIL_FAIL,
-    GET_ON_KEY_PRESS_BACKLOG_LIST
+    GET_ON_KEY_PRESS_BACKLOG_LIST,
+    GET_BACKLOG_LIST_ON_GLOBAL_SEARCH
   } from "./actionType";
   
 var user = sessionStorage.getItem("user");
@@ -36,6 +37,11 @@ var user = sessionStorage.getItem("user");
 
   export const getOnKeyPressBacklogList = backlog => ({
     type: GET_ON_KEY_PRESS_BACKLOG_LIST,
+    payload:  backlog,
+  });
+
+  export const getBacklogListOnGlobalSearch = backlog => ({
+    type: GET_BACKLOG_LIST_ON_GLOBAL_SEARCH,
     payload:  backlog,
   });
 

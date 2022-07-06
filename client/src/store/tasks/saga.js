@@ -15,6 +15,7 @@ import {
     GET_LINE_CHART_TASK_LIST,
     GET_STATUS_CHART_TASK_LIST,
     UPDATE_TASK_BY_SPRINTID,
+    GET_TASK_LIST_ON_GLOBAL_SEARCH
 } from "./actionType";
 import {
     TaskApiResponseSuccess, 
@@ -112,6 +113,15 @@ function* getSprintTaskDetail({ payload: id }) {
     }
 }
 
+function* getTaskListOnGlobalSearch({ payload: search }) {
+    try {
+        const response = yield call(axios.post, `http://localhost:3001/tasks/global/search-task/${search}`);
+        yield put(TaskApiResponseSuccess(GET_TASK_LIST_ON_GLOBAL_SEARCH, response));
+    } catch (error) {
+        yield put(TaskApiResponseError(GET_TASK_LIST_ON_GLOBAL_SEARCH, error));
+    }
+}
+
 function* onAddNewTask({ payload: task }) {
     try {
         const response = yield call(axios.post, 'http://localhost:3001/tasks/add/task', task);
@@ -123,7 +133,6 @@ function* onAddNewTask({ payload: task }) {
 }
 
 function* onUpdateTaskBySprintId({ payload: task ,sprintId: sprintId}) {
-    console.log(task, sprintId);
     try {
         const response = yield call(axios.post, 'http://localhost:3001/tasks/updateTaskBySprint/task', {task , sprintId} );
 
@@ -189,6 +198,10 @@ export function* watchGetSprintTaskDetail() {
     yield takeEvery(GET_SPRINT_TASK_DETAIL, getSprintTaskDetail);
 }
 
+export function* watchGetTaskListOnGlobalSearch() {
+    yield takeEvery(GET_TASK_LIST_ON_GLOBAL_SEARCH, getTaskListOnGlobalSearch);
+}
+
 export function* watchAddNewTask() {
     yield takeEvery(ADD_NEW_TASK, onAddNewTask);
 }
@@ -221,7 +234,9 @@ function* taskSaga() {
         fork(watchAddNewTask),
         fork(watchUpdateTask),
         fork(watchUpdateTaskBySprintId),
-        fork(watchDeleteTask)
+        fork(watchDeleteTask),
+        fork(watchGetTaskListOnGlobalSearch),
+        
     ]
     );
 }

@@ -7,6 +7,7 @@ import {
     DELETE_SPRINT,
     UPDATE_SPRINT,
     GET_SPRINT_DETAIL,
+    GET_SPRINT_LIST_ON_GLOBAL_SEARCH,
 } from "./actionType";
 import {
     SprintApiResponseSuccess, SprintApiResponseError,
@@ -40,12 +41,20 @@ function* getSprintList(user) {
 }
 
 function* getSprintDetail({ payload: id }) {
-    console.log("SPRINT");
     try {
         const response = yield call(axios.post, `http://localhost:3001/sprints/sprint-overview/${id}`);
         yield put(SprintApiResponseSuccess(GET_SPRINT_LIST, response));
     } catch (error) {
         yield put(SprintApiResponseError(GET_SPRINT_LIST, error));
+    }
+}
+
+function* getSprintListOnGlobalSearch({ payload: search }) {
+    try {
+        const response = yield call(axios.post, `http://localhost:3001/sprints/global/search-sprint/${search}`);
+        yield put(SprintApiResponseSuccess(GET_SPRINT_LIST_ON_GLOBAL_SEARCH, response));
+    } catch (error) {
+        yield put(SprintApiResponseError(GET_SPRINT_LIST_ON_GLOBAL_SEARCH, error));
     }
 }
 
@@ -86,6 +95,10 @@ export function* watchGetSprintDetail() {
     yield takeEvery(GET_SPRINT_DETAIL, getSprintDetail);
 }
 
+export function* watchGetSprintListOnGlobalSearch() {
+    yield takeEvery(GET_SPRINT_LIST_ON_GLOBAL_SEARCH, getSprintListOnGlobalSearch);
+}
+
 export function* watchAddNewSprint() {
     yield takeEvery(ADD_NEW_SPRINT, onAddNewSprint);
 }
@@ -104,6 +117,7 @@ function* sprintSaga() {
     yield all([
         fork(watchGetSprintList),
         fork(watchGetSprintDetail),
+        fork(watchGetSprintListOnGlobalSearch),
         fork(watchAddNewSprint),
         fork(watchUpdateSprint),
         fork(watchDeleteSprint)

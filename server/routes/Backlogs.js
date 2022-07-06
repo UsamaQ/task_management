@@ -26,6 +26,18 @@ router.post("/search-backlog/:search", async (req, res) => {
   res.json(listOfBacklogs);
 });
 
+router.post("/global/search-backlog/:search", async (req, res) => {
+  const search = req.params.search;
+  const listOfBacklogs = await Backlogs.findAll({
+    where : {
+      title : {
+        [Op.like] : "%"+search+"%"
+      }
+    }
+  });
+  res.json(listOfBacklogs);
+});
+
 router.post("/backlog-overview/:id", async (req, res) => {
   const id = req.params.id;
   const backlogDetail = await Backlogs.findAll({
@@ -38,7 +50,6 @@ router.post("/backlog-overview/:id", async (req, res) => {
 
 router.post("/add/backlog", async (req, res) => {
   const backlog = req.body;
-  console.log(backlog);
   await Backlogs.create(backlog);
 
   // ============================================

@@ -12,6 +12,9 @@ import calendarSaga from "./calendar/saga";
 //chat
 import chatSaga from "./chat/saga";
 
+//User
+import userSaga from "./users/saga";
+
 //Backlog
 import backlogSaga from "./backlogs/saga";
 
@@ -39,6 +42,7 @@ export default function* rootSaga() {
     fork(ForgetSaga),
     fork(ProfileSaga),
     fork(chatSaga),
+    fork(userSaga),
     fork(backlogSaga),
     fork(sprintSaga),
     fork(taskSaga),

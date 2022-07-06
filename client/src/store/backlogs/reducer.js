@@ -11,11 +11,13 @@ import {
     GET_BACKLOG_DETAIL,
     GET_BACKLOG_DETAIL_SUCCESS,
     GET_BACKLOG_DETAIL_FAIL,
-    GET_ON_KEY_PRESS_BACKLOG_LIST
+    GET_ON_KEY_PRESS_BACKLOG_LIST,
+    GET_BACKLOG_LIST_ON_GLOBAL_SEARCH
 } from "./actionType";
 
 const INIT_STATE = {
     backlogList: [],
+    globalSearchBackolg: [],
 };
 
 const Backlogs = (state = INIT_STATE, action) => {
@@ -31,6 +33,11 @@ const Backlogs = (state = INIT_STATE, action) => {
                     return {
                         ...state,
                         backlogList: action.payload.data,
+                    };
+                case GET_BACKLOG_LIST_ON_GLOBAL_SEARCH:
+                    return {
+                        ...state,
+                        globalSearchBacklog: action.payload.data,
                     };
 
                 default:
@@ -49,6 +56,11 @@ const Backlogs = (state = INIT_STATE, action) => {
                         ...state,
                         error: action.payload.error,
                     };
+                case GET_BACKLOG_LIST_ON_GLOBAL_SEARCH:
+                    return {
+                        ...state,
+                        error: action.payload.error,
+                    };   
 
                 default:
                     return { ...state };
@@ -61,6 +73,12 @@ const Backlogs = (state = INIT_STATE, action) => {
         }
 
         case GET_ON_KEY_PRESS_BACKLOG_LIST: {
+            return {
+                ...state,
+            };
+        }
+
+        case GET_BACKLOG_LIST_ON_GLOBAL_SEARCH:{
             return {
                 ...state,
             };
